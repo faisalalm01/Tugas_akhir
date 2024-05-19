@@ -1,6 +1,5 @@
 import axios from 'axios';
-import {DataResponse, LoginResponse, RegisterResponse} from './API/types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {LoginResponse, RegisterResponse} from './types';
 
 export const BaseUrl = 'https://jxsb6npw-3000.asse.devtunnels.ms/api';
 
@@ -34,39 +33,10 @@ export const loginUser = async (
       email,
       password,
     });
-    const token = response.data.data.access_token;
-    await AsyncStorage.setItem('token', token);
+
     return response.data;
   } catch (error) {
     console.error('Login error:', error);
     return {success: false, message: 'Login failed', code: 500};
   }
-};
-
-export const inputCctv = async (): Promise<DataResponse> => {
-  try {
-    const token = await AsyncStorage.getItem('token');
-    if (!token) {
-      throw new Error('No token found');
-    }
-    const response = await axios.get<DataResponse>(`${BaseUrl}/cctv`, {
-      headers: {
-        access_token: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getDataCctv = async () => {
-  try {
-  } catch (error) {}
-};
-
-export const getDataHistory = async () => {
-  try {
-  } catch (error) {}
 };

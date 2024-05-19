@@ -120,12 +120,22 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import Router from './routes';
+import {Provider} from 'react-redux';
+import store from './utils/redux/store';
+import {StatusBar} from 'react-native';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Router />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor="rgba(0,0,0,0)"
+          translucent
+        />
+        <Router />
+      </NavigationContainer>
+    </Provider>
   );
 };
 

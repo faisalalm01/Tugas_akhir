@@ -1,4 +1,4 @@
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import ButtonSecondary from './ButtonSecondary';
 import {IconName} from './Icon';
@@ -6,11 +6,11 @@ import {IconName} from './Icon';
 const HeaderComponenet = () => {
   return (
     <View style={styles.container}>
-      <StatusBar
+      {/* <StatusBar
         barStyle="dark-content"
         backgroundColor="rgba(0,0,0,0)"
         translucent
-      />
+      /> */}
       <View>
         <ButtonSecondary icon={IconName.Ionicons.Add} />
       </View>

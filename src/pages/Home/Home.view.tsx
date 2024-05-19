@@ -1,14 +1,39 @@
 /* eslint-disable react-native/no-inline-styles */
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, ScrollView, Text, View} from 'react-native';
 import HomeStyle from './Home.style';
 import {NavigationProps} from '../../utils/Navigator';
+import {inputCctv} from '../../utils/API';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Props = {
   navigation: NavigationProps;
 };
 
 const Home: React.FC<Props> = () => {
+  // const [data, setData] = useState<any[]>([]);
+
+  // const fetchData = async () => {
+  //   try {
+  //     const responseData = await inputCctv();
+  //     setData(responseData.data);
+  //   } catch (error) {
+  //     console.error('Fetch data error:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // Coba untuk mengambil data jika pengguna sudah login sebelumnya
+  //   const checkLoginStatus = async () => {
+  //     const token = await AsyncStorage.getItem('token');
+  //     if (token) {
+  //       fetchData();
+  //     }
+  //   };
+  //   checkLoginStatus();
+  // }, []);
+  // console.log(data);
+
   return (
     <>
       <View style={{alignSelf: 'flex-end'}}>
