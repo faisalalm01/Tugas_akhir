@@ -15,7 +15,7 @@ exports.signIn = async (req, res) => {
             return MSG.sendResponse(
                 res,
                 STATUS_CODE.STATUS_BAD_REQUEST,
-                ERROR.ERROR_ARG,
+                ERROR.MISSING_ARGS,
             )
         }
         const userData = await prisma.user.findUnique({
@@ -27,8 +27,8 @@ exports.signIn = async (req, res) => {
         if (!userData || !validPassword) {
             return MSG.sendResponse(
                 res,
-                STATUS_CODE.STATUS_BAD_REQUEST,
-                ERROR.EMAIL_EXIST
+                STATUS_CODE.STATUS_NOT_AUTHORIZED,
+                ERROR.INVALID_EMAIL_PASS
             )
         }
 
@@ -38,11 +38,17 @@ exports.signIn = async (req, res) => {
         return MSG.sendResponse(
             res,
             STATUS_CODE.STATUS_OK,
-            SUCCESS.SUCCESS_REGISTER,
+            SUCCESS.SUCCESS_LOGIN,
             response
         )
     } catch (error) {
         console.log(error);
+        return MSG.sendResponse(
+            res,
+            STATUS_CODE.STATUS_BAD_REQUEST,
+            error,
+            req.body
+        )
     }
 }
 
@@ -83,14 +89,14 @@ exports.signUp = async (req, res) => {
             return MSG.sendResponse(
                 res,
                 STATUS_CODE.STATUS_BAD_REQUEST,
-                ERROR.ERROR_ARG,
+                ERROR.MISSING_ARGS,
                 ''
             )
         } else {
             return MSG.sendResponse(
                 res,
                 STATUS_CODE.STATUS_BAD_REQUEST,
-                ERROR.ERROR_EXAMPLE,
+                ERROR.INTERNAL_SERVER,
                 ''
             )
         }

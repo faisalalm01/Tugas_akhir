@@ -4,7 +4,7 @@ const generateToken = (email, guid) => {
     const token = jwt.sign({
         email,
         guid,
-    }, process.env.JWT_ACCESS_SECRET, {
+    }, process.env.JWT_ACCESS_TOKEN, {
         expiresIn: "8h",
     });
     return token;

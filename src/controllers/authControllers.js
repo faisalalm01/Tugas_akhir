@@ -4,7 +4,7 @@ exports.Login = async (req, res) => {
     try {
         return await authService.signIn(req, res)
     } catch (error) {
-        console.log("error di sini");
+        console.log(error);
     }
 }
 

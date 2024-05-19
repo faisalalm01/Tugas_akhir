@@ -11,23 +11,56 @@ datasource db {
 }
 
 model Xample {
-  id String @id @unique
-  user String @unique
-  isDelete Boolean @default(false)
+  id        String   @id @unique
+  user      String   @unique
+  isDelete  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
 
 model User {
-  id String @id @unique
-  username String
-  email String @unique
-  password String
-  notelp String
-  isVerif Boolean @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id         String   @id @unique
+  username   String
+  email      String   @unique
+  password   String
+  notelp     String
+  isVerif    Boolean  @default(false)
+  reportUser Report[]
+  cctv       Cctv[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
 
-//model Report {}
+model Cctv {
+  id           String   @id @unique
+  idUser       String
+  ip           String   @unique
+  lokasiCamera String
+  lokasi       Lokasi   @relation(fields: [lokasiCamera], references: [namaLokasi])
+  user         User     @relation(fields: [idUser], references: [id])
+  report       Report[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+}
 
+model Lokasi {
+  id         String   @id @unique
+  namaLokasi String   @unique
+  cctv       Cctv[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+}
+
+model Report {
+  id          String   @id @unique
+  image       String
+  ip          String
+  nama        String
+  lokasi      String
+  lokasiRumah String
+  userId      String
+  cctv        Cctv     @relation(fields: [ip], references: [ip])
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}

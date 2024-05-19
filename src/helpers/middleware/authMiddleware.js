@@ -1,14 +1,16 @@
 const jwt = require('jsonwebtoken');
 const { STATUS_CODE } = require('../constant/http_status');
+const { ERROR } = require('../constant/http_message');
 
 exports.checkToken = (req, res, next) => {
     const bearer = req.header("access_token");
     if (!bearer) {
-        res.send({
-            msg: "unauthorized",
-            status: STATUS_CODE.STATUS_NOT_AUTHORIZED,
-            error: "error get token"
-        })
+        MSG.sendResponse(
+            res,
+            STATUS_CODE.STATUS_NOT_AUTHORIZED,
+            ERROR.UNAUTHORIZED,
+            "eror di header bearer"
+        );
     } else {
         const token = bearer.split(" ")[1];
         try {
@@ -16,11 +18,12 @@ exports.checkToken = (req, res, next) => {
             req.token = decodedToken.guid;
             next();
         } catch (error) {
-            res.send({
-                msg: "unauthorized",
-                status: STATUS_CODE.STATUS_NOT_AUTHORIZED,
-                error: "error get token"
-            })
+            MSG.sendResponse(
+                res,
+                STATUS_CODE.STATUS_NOT_AUTHORIZED,
+                ERROR.UNAUTHORIZED,
+                "eror di token"
+            )
         }
     }
 };
