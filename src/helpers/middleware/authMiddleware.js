@@ -3,7 +3,7 @@ const { STATUS_CODE } = require('../constant/http_status');
 const { ERROR } = require('../constant/http_message');
 
 exports.checkToken = (req, res, next) => {
-    const bearer = req.header("access_token");
+    const bearer = req.header("Authorization");
     if (!bearer) {
         MSG.sendResponse(
             res,

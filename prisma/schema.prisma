@@ -25,6 +25,7 @@ model User {
   password   String
   notelp     String
   isVerif    Boolean  @default(false)
+  otp        String?
   reportUser Report[]
   cctv       Cctv[]
   createdAt  DateTime @default(now())
@@ -59,7 +60,7 @@ model Report {
   lokasi      String
   lokasiRumah String
   userId      String
-  cctv        Cctv     @relation(fields: [ip], references: [ip])
+  cctv        Cctv     @relation(fields: [ip], references: [id])
   user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())

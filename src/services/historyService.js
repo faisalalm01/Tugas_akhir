@@ -6,12 +6,74 @@ const uuid4 = require("uuid").v4;
 
 exports.inputReport = async (req, res) => {
   try {
-  } catch (error) {}
+    const id = uuid4();
+    const { ip, nama, lokasiRumah } = req.body;
+    const userId = req.token;
+    const image = req.Image.url;
+    const cctv = await prisma.cctv.findUnique({
+      where: { id: ip },
+      include: { lokasi: true }
+    });
+
+    if (!cctv) {
+      return res.status(404).json({ error: 'CCTV not found' });
+    }
+
+    const lokasi = cctv.lokasi.namaLokasi;
+
+    const newData = await prisma.report.create({
+      data: {
+        id: id,
+        image: image,
+        ip: ip,
+        nama: nama,
+        lokasiRumah: lokasiRumah,
+        lokasi: lokasi,
+        userId: userId,
+      },
+    });
+
+    return MSG.sendResponse(
+      res,
+      STATUS_CODE.STATUS_OK,
+      SUCCESS.SUCCESS_GET_EXAMPLE_BYID,
+      newData
+    );
+  } catch (error) {
+    console.log(error);
+    return MSG.sendResponse(
+      res,
+      STATUS_CODE.STATUS_NOT_FOUND,
+      ERROR.ERROR_EXAMPLE,
+      ""
+    );
+  }
 };
 
 exports.getReport = async (req, res) => {
   try {
-    const dataReportAll = await prisma.report.findMany();
+    // const getLokasiCamera = await prisma.cctv.findUnique({
+    //   where: {
+    //     ip: ipCamera
+    //   },
+    //   include: {
+    //     lokasi: {}
+    //   }
+    // })
+    // console.log(getLokasiCamera);
+    const idUser = req.token;
+    const dataReportAll = await prisma.report.findMany({
+      include: {
+        cctv: {
+          include: {
+            lokasi: true,
+          },
+        },
+      },
+      where: {
+        userId: idUser,
+      },
+    });
     return MSG.sendResponse(
       res,
       STATUS_CODE.STATUS_OK,

@@ -17,3 +17,12 @@ exports.getReportById = async (req, res) => {
         console.error(error);
     }
 }
+
+exports.inputReport = async (req, res) => {
+    try {
+        const result = await reportService.inputReport(req, res)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
