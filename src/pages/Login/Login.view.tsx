@@ -6,7 +6,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import {NavigationProps} from '../../utils/Navigator';
 import {useSelector} from 'react-redux';
 import {LoginResponse} from '../../utils/API/types';
-import {loginUser} from '../../utils/API';
+import {loginUser} from '../../utils/API/API';
 // import {login} from '../../utils/redux/actions/authActions';
 
 type PropsHome = {

@@ -7,6 +7,7 @@ type RootStackParamList = {
   Home: undefined;
   Profile: undefined;
   OnBoarding: undefined;
+  DetailHistory: undefined;
   // tambahkan layar lain di sini jika diperlukan
 } & ParamListBase;
 

@@ -1,17 +1,42 @@
 /* eslint-disable react-native/no-inline-styles */
 import {ScrollView, Text, View} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileStyle from './Profile.style';
 import CardComponent from '../../components/CardComponent';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {IconName} from '../../components/Icon';
 import {NavigationProps} from '../../utils/Navigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userDetail } from '../../utils/API/API';
 
 type Props = {
   navigation: NavigationProps;
 };
 
 const Profile: React.FC<Props> = () => {
+  const [data, setData] = useState<any[]>([]);
+  // const token = AsyncStorage.getItem('token');
+  // console.log(token);
+
+  const fetchData = async () => {
+    try {
+      const responseData = await userDetail();
+      setData(responseData.data);
+    } catch (error) {
+      console.error('Fetch data error:', error);
+    }
+  };
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        fetchData();
+      }
+    };
+    checkLoginStatus();
+  }, []);
+
   return (
     <ScrollView style={{marginHorizontal: 15}}>
       <View style={ProfileStyle.Container}>
@@ -29,9 +54,9 @@ const Profile: React.FC<Props> = () => {
                 justifyContent: 'center',
               }}>
               <Text style={{fontSize: 17, fontWeight: '800', color: 'black'}}>
-                Faisal Ali Muhamad
+                {data.username}
               </Text>
-              <Text style={{fontSize: 14}}>faisalali2858@gmail.com</Text>
+              <Text style={{fontSize: 14, color: 'black'}}>{data.email}</Text>
             </View>
           </View>
           <View style={{justifyContent: 'center'}}>

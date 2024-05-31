@@ -1,5 +1,3 @@
-import {SetStateAction} from 'react';
-
 export interface LoginResponse {
   success: boolean;
   code?: number;
@@ -19,6 +17,7 @@ export interface UserData {
   success: boolean;
   code?: number;
   message?: string;
+  data?: [];
 }
 
 export interface LoginSuccessAction {
@@ -32,7 +31,7 @@ export interface LoginFailureAction {
 }
 
 export interface DataResponse {
-  data: SetStateAction<any[]>;
+  data: [];
   success: boolean;
   code?: number;
   message?: string;

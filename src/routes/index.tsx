@@ -5,6 +5,7 @@ import OnBoarding from '../pages/onBoarding/onBoarding.view';
 import Login from '../pages/Login/Login.view';
 import Register from '../pages/Register/Register.view';
 import MainNavigator from './MainRoot';
+import DetailHistory from '../pages/DetailHistory/DetailHistory.view';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const RootNavigator = () => (
     <Stack.Screen name="Register" component={Register} />
     <Stack.Screen name="Main" component={MainNavigator} />
     <Stack.Screen name="OnBoarding" component={OnBoarding} />
+    <Stack.Screen name="DetailHistory" component={DetailHistory} />
   </Stack.Navigator>
 );
 
