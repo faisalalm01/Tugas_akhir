@@ -45,6 +45,7 @@ exports.getIpCctvCamera = async (req, res) => {
         user: {}
       }
     });
+    console.log(idUser);
     return MSG.sendResponse(
       res,
       STATUS_CODE.STATUS_OK,
@@ -52,11 +53,12 @@ exports.getIpCctvCamera = async (req, res) => {
       getCameraCctv
     );
   } catch (error) {
+    console.log(error);
     return MSG.sendResponse(
       res,
       STATUS_CODE.STATUS_NOT_FOUND,
       ERROR.ERROR_EXAMPLE,
-      ""
+      "ererer"
     );
   }
 };

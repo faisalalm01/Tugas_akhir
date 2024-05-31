@@ -97,6 +97,9 @@ exports.getReportById = async (req, res) => {
       where: {
         id: id,
       },
+      include: {
+        cctv: true
+      }
     });
     return MSG.sendResponse(
       res,
