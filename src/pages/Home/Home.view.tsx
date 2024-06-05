@@ -53,22 +53,28 @@ const Home: React.FC<Props> = () => {
           <Text style={HomeStyle.textHeader}>Be sure of your safety</Text>
         </View>
         <ScrollView>
-          <View style={{rowGap: 10, marginBottom: 200}}>
-            {data.map(item => (
-              <View key={item.id}>
-                <Image
-                  id={item.id}
-                  source={require('../../assets/Homepage-Home.png')}
-                  style={{width: '100%', height: 135, borderRadius: 15}}
-                />
-                {/* <Text style={{color: 'black'}}>{item.lokasiCamera}</Text> */}
-              </View>
-            ))}
-            {/* <Image
+          {data?.length === 0 ? (
+            <>
+              <Text style={{color: 'black'}}>Data Not Found</Text>
+            </>
+          ) : (
+            <View style={{rowGap: 10, marginBottom: 200}}>
+              {data.map(item => (
+                <View key={item.id}>
+                  <Image
+                    id={item.id}
+                    source={require('../../assets/Homepage-Home.png')}
+                    style={{width: '100%', height: 135, borderRadius: 15}}
+                  />
+                  {/* <Text style={{color: 'black'}}>{item.lokasiCamera}</Text> */}
+                </View>
+              ))}
+              {/* <Image
               source={require('../../assets/Homepage-Home.png')}
               style={{width: '100%', height: 135, borderRadius: 15}}
             /> */}
-          </View>
+            </View>
+          )}
         </ScrollView>
       </View>
     </>

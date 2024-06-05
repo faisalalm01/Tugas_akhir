@@ -8,10 +8,10 @@ export default StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'black',
+    color: 'white',
   },
   subtitle: {
     fontSize: 20,
@@ -20,14 +20,16 @@ export default StyleSheet.create({
   },
   slide: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
+    // borderColor: 'red',
+    // borderWidth: 2,
   },
   image: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+    width: '72%',
+    height: '50%',
+    // marginBottom: 20,
   },
   // title: {
   //   fontSize: 24,
@@ -35,7 +37,9 @@ export default StyleSheet.create({
   //   marginBottom: 10,
   // },
   description: {
-    textAlign: 'center',
+    // textAlign: 'center',
+    fontSize: 18,
     marginBottom: 20,
+    color: 'white',
   },
 });

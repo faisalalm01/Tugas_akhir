@@ -1,13 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import {ScrollView, Text, View} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import ProfileStyle from './Profile.style';
 import CardComponent from '../../components/CardComponent';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {IconName} from '../../components/Icon';
 import {NavigationProps} from '../../utils/Navigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { userDetail } from '../../utils/API/API';
+import {userDetail} from '../../utils/API/API';
 
 type Props = {
   navigation: NavigationProps;

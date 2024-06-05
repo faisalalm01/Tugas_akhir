@@ -51,7 +51,12 @@ const DetailHistory: React.FC<Props> = ({navigation}) => {
       ) : (
         <>
           <Text
-            style={{marginTop: 75, paddingLeft: 30, position: 'absolute'}}
+            style={{
+              marginTop: 75,
+              paddingLeft: 30,
+              position: 'absolute',
+              color: 'black',
+            }}
             onPress={() => navigation.goBack()}>
             Back
           </Text>
