@@ -22,6 +22,8 @@ router.get("/xample/:id", xampleController.xampleGetId);
 
 router.post("/register", authController.Register);
 router.post("/login", authController.Login);
+router.post("/verify", authController.verify);
+router.put("/resend-otp", authController.resendOtp);
 
 router.get(
   "/user/detail",

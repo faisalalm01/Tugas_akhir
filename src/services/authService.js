@@ -61,17 +61,28 @@ exports.signUp = async (req, res) => {
     const { username, email, notelp } = req.body;
     const password = bcrypt.hashSync(req.body.password, saltRounds);
     const id = uuid4();
+    const otp = await sendVerification({ email, username });
+    // const users = await prisma.user.create({
+    //   data: {
+    //     id: id,
+    //     username: username,
+    //     email: email,
+    //     password: password,
+    //     otp: otp,
+    //     notelp: notelp,
+    //   },
+    //   // isVerif
+    // });
     const users = await prisma.user.create({
       data: {
         id: id,
-        username: username,
-        email: email,
+        username,
+        email,
         password: password,
-        notelp: notelp,
-      },
-      // isVerif
+        notelp,
+        otp,
+      }
     });
-    await sendVerification(users);
     return MSG.sendResponse(
       res,
       STATUS_CODE.STATUS_OK,
@@ -122,16 +133,94 @@ sendVerification = async (data) => {
   try {
     console.log("sending email...");
     // const token = generateToken(data.email, data.id);
-    const token = generateOtp();
+    const otp = generateOtp();
     const payload = {
       email: data.email,
-      urlLink: token,
+      urlLink: otp,
       name: data.username,
       title: "Email Verification",
     };
     const template = "verifikasi";
-    return await send.sendMailRegister(template, payload);
+    await send.sendMailRegister(template, payload);
+    return otp
   } catch (error) {
     console.log("error sending email", error);
   }
 };
+
+exports.verify = async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (user.otp !== otp || new Date() > user.otpExpiresAt) {
+      return res.status(400).json({ error: 'Invalid or expired OTP' });
+    }
+
+    await prisma.user.update({
+      where: { email },
+      data: {
+        isVerif: true,
+        otp: null,
+      }
+    });
+
+    res.status(200).json({ message: 'Email verified successfully' });
+  } catch (error) {
+    console.error("Verification error", error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+exports.resendOtp = async (req, res) => {
+  try {
+    const {email} = req.body
+    
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (user.isVerif === true) {
+      return MSG.sendResponse(
+        res,
+        STATUS_CODE.STATUS_BAD_REQUEST,
+        ERROR.INTERNAL_SERVER,
+        "akun sudah terverifikasi"
+      );
+    }
+
+    const otp = await sendVerification({ email });
+    
+    const otpUpdate = await prisma.user.update({
+      where: {
+        email: email
+      },
+      data: {
+        otp: otp
+      }
+    })
+
+    const responseView = {
+      email: email,
+      otp: otpUpdate.otp
+    }
+    return MSG.sendResponse(
+      res,
+      STATUS_CODE.STATUS_OK,
+      SUCCESS.SUCCESS_REGISTER,
+      responseView,
+      "otp success"
+    );
+  } catch (error) {
+    console.log(error);
+    return MSG.sendResponse(
+      res,
+      STATUS_CODE.STATUS_BAD_REQUEST,
+      ERROR.INTERNAL_SERVER,
+      ""
+    );
+  }
+}

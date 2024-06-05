@@ -62,6 +62,7 @@ exports.getReport = async (req, res) => {
     // })
     // console.log(getLokasiCamera);
     const idUser = req.token;
+    const { lokasi } = req.query;
     const dataReportAll = await prisma.report.findMany({
       include: {
         cctv: {
@@ -72,6 +73,7 @@ exports.getReport = async (req, res) => {
       },
       where: {
         userId: idUser,
+        ...(lokasi && { lokasi }),
       },
     });
     return MSG.sendResponse(
