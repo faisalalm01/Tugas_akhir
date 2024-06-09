@@ -6,10 +6,27 @@ import Login from '../pages/Login/Login.view';
 import Register from '../pages/Register/Register.view';
 import MainNavigator from './MainRoot';
 import DetailHistory from '../pages/DetailHistory/DetailHistory.view';
+import Otp from '../pages/Otp/Otp.view';
+// import {checkTokens} from '../utils/checkToken'; // Pastikan path sesuai
 
 const Stack = createNativeStackNavigator();
 
-const RootNavigator = () => (
+const RootNavigator = () => {
+  // const [initialRoute, setInitialRoute] = useState<string>('Splashscreen');
+
+  // useEffect(() => {
+  //   const initialize = async () => {
+  //     const hasToken = await checkTokens();
+  //     if (hasToken) {
+  //       setInitialRoute('Main');
+  //     } else {
+  //       setInitialRoute('Splashscreen');
+  //     }
+  //   };
+
+  //   initialize();
+  // }, []);
+
   <Stack.Navigator
     initialRouteName="Splashscreen"
     screenOptions={{
@@ -23,7 +40,8 @@ const RootNavigator = () => (
     <Stack.Screen name="Main" component={MainNavigator} />
     <Stack.Screen name="OnBoarding" component={OnBoarding} />
     <Stack.Screen name="DetailHistory" component={DetailHistory} />
-  </Stack.Navigator>
-);
+    <Stack.Screen name="OtpVerif" component={Otp} />
+  </Stack.Navigator>;
+};
 
 export default RootNavigator;

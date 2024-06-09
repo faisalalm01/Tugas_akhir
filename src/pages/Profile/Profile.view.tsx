@@ -14,7 +14,7 @@ type Props = {
 };
 
 const Profile: React.FC<Props> = () => {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<any>([]);
   // const token = AsyncStorage.getItem('token');
   // console.log(token);
 

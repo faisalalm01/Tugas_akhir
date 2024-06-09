@@ -8,10 +8,9 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "dev": "npm start -- --reset-cache",
     "bundle-android": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-    "watch-android": "nodemon",
-    "start-android": "npm run bundle-android && npm run start"
+    "dev": "nodemon",
+    "start-android": "npm run bundle-android && npm run android"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.23.1",

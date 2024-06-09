@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import onBoardingStyle from './onBoarding.style';
 import {NavigationProps} from '../../utils/Navigator';
 import Swiper from 'react-native-swiper';
@@ -84,7 +84,10 @@ const OnBoarding: React.FC<Props> = ({navigation}) => {
                   borderRadius: 10,
                 }}
                 onPress={() => navigation.replace('Login')}>
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Login</Text>
+                <Text
+                  style={{fontSize: 20, fontWeight: 'bold', color: '#ffff'}}>
+                  Login
+                </Text>
               </TouchableOpacity>
             )}
           </View>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {DataResponse, LoginResponse, RegisterResponse} from './types';
+import {DataResponse, LoginResponse, OtpVerif, RegisterResponse} from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const BaseUrl = 'https://jxsb6npw-3000.asse.devtunnels.ms/api';
@@ -22,6 +22,23 @@ export const registerUser = async (
   } catch (error) {
     console.error('Registration error:', error);
     return {success: false, message: 'Registration failed', code: 500};
+  }
+};
+
+export const VerifyOtp = async (
+  email: string,
+  otp: string,
+): Promise<OtpVerif> => {
+  try {
+    const response = await axios.post(`${BaseUrl}/verify`, {
+      email,
+      otp,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('otp error:', error);
+    return {success: false, message: 'verify failed', code: 500};
   }
 };
 

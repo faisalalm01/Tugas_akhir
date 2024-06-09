@@ -13,6 +13,12 @@ export interface RegisterResponse {
   message?: string;
 }
 
+export interface OtpVerif {
+  success: boolean;
+  code?: number;
+  message?: string;
+}
+
 export interface UserData {
   success: boolean;
   code?: number;

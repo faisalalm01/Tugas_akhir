@@ -13,7 +13,7 @@ type Props = {
 
 const Home: React.FC<Props> = () => {
   const [data, setData] = useState<any[]>([]);
-  const [userData, setUserData] = useState<any[]>([]);
+  const [userData, setUserData] = useState<any>([]);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   // const token = AsyncStorage.getItem('token');
   // console.log(token);

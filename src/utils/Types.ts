@@ -1,15 +1,16 @@
 import {ParamListBase} from '@react-navigation/native';
-import {Props} from 'react-native-paper';
+// import {Props} from 'react-native-paper';
 
 type RootStackParamList = {
   Splash: undefined;
   Register: undefined;
   Login: undefined;
-  Home: Props;
+  Home: undefined;
   Profile: undefined;
   OnBoarding: undefined;
   History: undefined;
-  DetailHistory: undefined;
+  DetailHistory: {id: string};
+  OtpVerif: {email: string};
   // tambahkan layar lain di sini jika diperlukan
 } & ParamListBase;
 

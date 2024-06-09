@@ -16,7 +16,7 @@ const Register: React.FC<Props> = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [notelp, setNotelp] = useState('');
+  const [notelp, setNotelp] = useState('+62');
 
   const handleRegister = async () => {
     try {
@@ -29,7 +29,7 @@ const Register: React.FC<Props> = ({navigation}) => {
 
       if (response.code === 200) {
         console.log('Registration success');
-        navigation.navigate('Login');
+        navigation.navigate('OtpVerif', {email});
       } else {
         Alert.alert('Registration failed', response.message || 'Unknown error');
       }
@@ -78,6 +78,8 @@ const Register: React.FC<Props> = ({navigation}) => {
             style={RegisterStyle.FormInput}
             value={notelp}
             onChangeText={setNotelp}
+            keyboardType="name-phone-pad"
+            maxLength={13}
           />
         </View>
         <View style={{flexDirection: 'row'}}>
