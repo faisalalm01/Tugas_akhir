@@ -14,6 +14,7 @@ exports.getUserDataById = async (req, res) => {
     });
     const newUserData = {
       id: userData.id,
+      image: userData.image,
       username: userData.username,
       email: userData.email,
       notelp: userData.notelp,
@@ -41,11 +42,13 @@ exports.updateUserDetail = async (req, res) => {
   try {
     const id = req.token;
     const { username, notelp } = req.body;
+    const image = req.Image.url;
     const userData = await prisma.user.update({
       where: {
         id: id,
       },
       data: {
+        image: image,
         username: username,
         notelp: notelp
       }
@@ -53,6 +56,7 @@ exports.updateUserDetail = async (req, res) => {
 
 
     const newUserDetail = {
+      image: userData.image,
       username: userData.username,
       notelp: userData.notelp,
     };

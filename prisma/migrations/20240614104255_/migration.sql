@@ -14,11 +14,13 @@ CREATE TABLE `Xample` (
 -- CreateTable
 CREATE TABLE `User` (
     `id` VARCHAR(191) NOT NULL,
+    `userProfile` VARCHAR(191) NULL,
     `username` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
     `notelp` VARCHAR(191) NOT NULL,
     `isVerif` BOOLEAN NOT NULL DEFAULT false,
+    `otp` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
@@ -30,8 +32,11 @@ CREATE TABLE `User` (
 -- CreateTable
 CREATE TABLE `Cctv` (
     `id` VARCHAR(191) NOT NULL,
+    `image` VARCHAR(191) NOT NULL,
     `idUser` VARCHAR(191) NOT NULL,
+    `userIp` VARCHAR(191) NOT NULL,
     `ip` VARCHAR(191) NOT NULL,
+    `path` VARCHAR(191) NOT NULL,
     `lokasiCamera` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),

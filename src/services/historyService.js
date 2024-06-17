@@ -12,11 +12,11 @@ exports.inputReport = async (req, res) => {
     const image = req.Image.url;
     const cctv = await prisma.cctv.findUnique({
       where: { id: ip },
-      include: { lokasi: true }
+      include: { lokasi: true },
     });
 
     if (!cctv) {
-      return res.status(404).json({ error: 'CCTV not found' });
+      return res.status(404).json({ error: "CCTV not found" });
     }
 
     const lokasi = cctv.lokasi.namaLokasi;
@@ -62,19 +62,25 @@ exports.getReport = async (req, res) => {
     // })
     // console.log(getLokasiCamera);
     const idUser = req.token;
-    const { lokasi } = req.query;
+    const { lokasi, page = 1, limit = 7 } = req.query;
     const dataReportAll = await prisma.report.findMany({
-      include: {
-        cctv: {
-          include: {
-            lokasi: true,
-          },
-        },
-      },
+      // include: {
+      //   cctv: {
+      //     include: {
+      //       lokasi: true,
+      //     },
+      //   },
+      // },
       where: {
         userId: idUser,
-        ...(lokasi && { lokasi }),
+        ...(lokasi && {
+          lokasi: {
+            contains: lokasi,
+          }
+        }),
       },
+      skip: (page - 1) * limit,
+      take: parseInt(limit),
     });
     return MSG.sendResponse(
       res,
@@ -100,8 +106,8 @@ exports.getReportById = async (req, res) => {
         id: id,
       },
       include: {
-        cctv: true
-      }
+        cctv: true,
+      },
     });
     return MSG.sendResponse(
       res,

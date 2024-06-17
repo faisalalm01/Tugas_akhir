@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer ({
     storage: storage,
-    // limits: 2 * 1000 * 1000,
+    limits: 2 * 1000 * 1000,
 })
 
   const uploadFile = (req,res,next) => {
@@ -38,14 +38,5 @@ const upload = multer ({
             
     })
 }
-//   fileFilter: (_req, file, cb) => {
-//     let ext = path.extname(file.originalname);
-//     if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
-//       cb(new Error("Unsupported file type!"), false);
-//       return;
-//     }
-//     cb(null, true);
-//   },
-
 
 module.exports = uploadFile;

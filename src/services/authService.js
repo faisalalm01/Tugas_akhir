@@ -155,14 +155,24 @@ exports.verify = async (req, res) => {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return MSG.sendResponse(
+        res,
+        STATUS_CODE.STATUS_NOT_FOUND,
+        ERROR.MISSING_ARGS,
+        ""
+      );
     }
 
     if (user.otp !== otp || new Date() > user.otpExpiresAt) {
-      return res.status(400).json({ error: 'Invalid or expired OTP' });
+      return MSG.sendResponse(
+        res,
+        STATUS_CODE.STATUS_BAD_REQUEST,
+        ERROR.MISSING_ARGS,
+        ""
+      );
     }
 
-    await prisma.user.update({
+    const otpUpdate = await prisma.user.update({
       where: { email },
       data: {
         isVerif: true,
@@ -170,10 +180,21 @@ exports.verify = async (req, res) => {
       }
     });
 
-    res.status(200).json({ message: 'Email verified successfully' });
+    return MSG.sendResponse(
+      res,
+      STATUS_CODE.STATUS_OK,
+      SUCCESS.SUCCESS_REGISTER,
+      otpUpdate,
+      "otp success"
+    );
   } catch (error) {
     console.error("Verification error", error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return MSG.sendResponse(
+      res,
+      STATUS_CODE.STATUS_BAD_REQUEST,
+      ERROR.INTERNAL_SERVER,
+      ""
+    );
   }
 }
 

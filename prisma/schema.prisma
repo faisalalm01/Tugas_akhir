@@ -20,6 +20,7 @@ model Xample {
 
 model User {
   id         String   @id @unique
+  image      String?
   username   String
   email      String   @unique
   password   String
@@ -35,8 +36,13 @@ model User {
 model Cctv {
   id           String   @id @unique
   idUser       String
+  image        String?
+  passwordUser String?
+  userIp       String?
   ip           String   @unique
+  path         String?
   lokasiCamera String
+  isDelete     Boolean  @default(false)
   lokasi       Lokasi   @relation(fields: [lokasiCamera], references: [namaLokasi])
   user         User     @relation(fields: [idUser], references: [id])
   report       Report[]

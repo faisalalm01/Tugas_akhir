@@ -12,6 +12,7 @@ router.get("/", async (req, res, next) => {
   res.send({ message: "Ok api is working 🚀" });
 });
 
+
 router.get("/xample", xampleController.xampleData);
 router.post(
   "/xample",
@@ -32,6 +33,7 @@ router.get(
 );
 router.put(
   "/user/update",
+  uploadFile, uploadCloudinary,
   authMiddleware.checkToken,
   userController.updateUserDetail
 );
@@ -45,8 +47,14 @@ router.group("/history", authMiddleware.checkToken, (router) => {
 router.group("/cctv", authMiddleware.checkToken, (router) => {
   router.get("", cameraController.getCctvCamera);
   router.get("/:id", cameraController.getCctvCameraById);
-  router.post("", cameraController.inputCctvCamera);
+  router.post("", uploadFile, uploadCloudinary, cameraController.inputCctvCamera);
   router.delete("/:id", cameraController.deleteCameraCctv);
 });
+
+
+router.get("/*", async (req, res, next) => {
+  res.send({ message: "Not Found Respond", status: 404 });
+});
+
 
 module.exports = router;
