@@ -11,22 +11,7 @@ import Otp from '../pages/Otp/Otp.view';
 
 const Stack = createNativeStackNavigator();
 
-const RootNavigator = () => {
-  // const [initialRoute, setInitialRoute] = useState<string>('Splashscreen');
-
-  // useEffect(() => {
-  //   const initialize = async () => {
-  //     const hasToken = await checkTokens();
-  //     if (hasToken) {
-  //       setInitialRoute('Main');
-  //     } else {
-  //       setInitialRoute('Splashscreen');
-  //     }
-  //   };
-
-  //   initialize();
-  // }, []);
-
+const RootNavigator = () => (
   <Stack.Navigator
     initialRouteName="Splashscreen"
     screenOptions={{
@@ -41,7 +26,7 @@ const RootNavigator = () => {
     <Stack.Screen name="OnBoarding" component={OnBoarding} />
     <Stack.Screen name="DetailHistory" component={DetailHistory} />
     <Stack.Screen name="OtpVerif" component={Otp} />
-  </Stack.Navigator>;
-};
+  </Stack.Navigator>
+);
 
 export default RootNavigator;

@@ -1,5 +1,12 @@
 import axios from 'axios';
-import {DataResponse, LoginResponse, OtpVerif, RegisterResponse} from './types';
+import {
+  DataResponse,
+  Image,
+  LoginResponse,
+  OtpVerif,
+  RegisterResponse,
+  UserUpdateResponse,
+} from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const BaseUrl = 'https://jxsb6npw-3000.asse.devtunnels.ms/api';
@@ -93,6 +100,49 @@ export const userDetail = async () => {
   }
 };
 
+export const userUpdate = async (
+  id: string,
+  username: string,
+  notelp: string,
+  image: Image | null,
+): Promise<UserUpdateResponse> => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('notelp', notelp);
+    if (image) {
+      formData.append('image', {
+        uri: image.uri,
+        type: image.type,
+        name: image.fileName,
+      } as any);
+    }
+    const response = await axios.put<UserUpdateResponse>(
+      `${BaseUrl}/user/update/${id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('API error:', error.response.data);
+    } else {
+      console.error('Fetch data error:', error);
+    }
+    throw error;
+  }
+};
+
 export const getDataCctv = async (): Promise<DataResponse> => {
   try {
     const token = await AsyncStorage.getItem('token');
@@ -126,7 +176,7 @@ export const inputCctv = async () => {
   } catch (error) {}
 };
 
-export const getDataHistory = async () => {
+export const getDataHistory = async (page = 1, limit = 7, lokasi?: string) => {
   try {
     const token = await AsyncStorage.getItem('token');
     if (!token) {
@@ -136,6 +186,11 @@ export const getDataHistory = async () => {
       headers: {
         Authorization: `bearer ${token}`,
         'Content-Type': 'application/json',
+      },
+      params: {
+        page,
+        limit,
+        lokasi,
       },
     });
     // console.log(response.data);

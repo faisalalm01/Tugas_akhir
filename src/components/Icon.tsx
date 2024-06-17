@@ -17,6 +17,7 @@ export const IconName = {
     Notif: 'notifications-none',
     Question: 'question-mark',
     Info: 'info-outline',
+    Logout: 'logout',
   },
 };
 

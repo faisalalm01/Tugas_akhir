@@ -14,14 +14,20 @@ type Props = {
 
 const History: React.FC<Props> = ({navigation}) => {
   const [data, setData] = useState<any[]>([]);
-  // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  // const token = AsyncStorage.getItem('token');
-  // console.log(token);
+  const [filter, setFilter] = useState<string>('All');
+  const [locations, setLocations] = useState<string[]>(['All']);
 
   const fetchData = async () => {
     try {
       const responseData = await getDataHistory();
       setData(responseData.data);
+      const uniqueLocations: any[] = [
+        'All',
+        ...Array.from(
+          new Set(responseData.data.map((item: any) => item.lokasi)),
+        ),
+      ];
+      setLocations(uniqueLocations);
     } catch (error) {
       console.error('Fetch data error:', error);
     }
@@ -37,6 +43,10 @@ const History: React.FC<Props> = ({navigation}) => {
     };
     checkLoginStatus();
   }, []);
+
+  const filteredData =
+    filter === 'All' ? data : data.filter(item => item.lokasi === filter);
+
   return (
     <>
       <View style={HistoryStyle.box}>
@@ -46,15 +56,23 @@ const History: React.FC<Props> = ({navigation}) => {
         <ScrollView
           horizontal
           contentContainerStyle={HistoryStyle.scrollViewContainer}>
-          <FilterComponent name="All" />
+          {locations.map(location => (
+            <FilterComponent
+              key={location}
+              name={location}
+              // isActive={filter === location}
+              onPress={() => setFilter(location)}
+            />
+          ))}
+          {/* <FilterComponent name="All" />
           <FilterComponent name="Garrage" />
           <FilterComponent name="Room1" />
           <FilterComponent name="Outside" />
           <FilterComponent name="Room2" />
-          <FilterComponent name="Parking" />
+          <FilterComponent name="Parking" /> */}
         </ScrollView>
         <ScrollView style={{marginBottom: 45}}>
-          {data.map(item => (
+          {filteredData.map(item => (
             <TouchableOpacity
               key={item.id}
               onPress={() =>

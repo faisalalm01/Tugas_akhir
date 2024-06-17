@@ -43,3 +43,16 @@ export interface DataResponse {
   message?: string;
   // data: any[];
 }
+
+export interface Image {
+  uri: string;
+  type: string;
+  fileName: string;
+}
+
+export interface UserUpdateResponse {
+  success: boolean;
+  code?: number;
+  message?: string;
+  data?: [];
+}

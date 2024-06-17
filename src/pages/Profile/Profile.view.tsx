@@ -13,7 +13,7 @@ type Props = {
   navigation: NavigationProps;
 };
 
-const Profile: React.FC<Props> = () => {
+const Profile: React.FC<Props> = ({navigation}) => {
   const [data, setData] = useState<any>([]);
   // const token = AsyncStorage.getItem('token');
   // console.log(token);
@@ -36,6 +36,20 @@ const Profile: React.FC<Props> = () => {
     };
     checkLoginStatus();
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      // Menghapus token dari AsyncStorage
+      await AsyncStorage.removeItem('token');
+      // Mengarahkan pengguna ke halaman Login
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Login'}],
+      });
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
 
   return (
     <ScrollView style={{marginHorizontal: 15}}>
@@ -81,6 +95,11 @@ const Profile: React.FC<Props> = () => {
           text={'Support'}
         />
         <CardComponent icon={IconName.MaterialIcons.Info} text={'About us'} />
+        <CardComponent
+          icon={IconName.MaterialIcons.Logout}
+          text={'Logout'}
+          onPress={handleLogout}
+        />
       </View>
     </ScrollView>
   );
