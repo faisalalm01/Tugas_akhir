@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Button, Image, ScrollView, Text, View} from 'react-native';
 import HomeStyle from './Home.style';
 import {NavigationProps} from '../../utils/Navigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,7 +11,7 @@ type Props = {
   navigation: NavigationProps;
 };
 
-const Home: React.FC<Props> = () => {
+const Home: React.FC<Props> = ({navigation}) => {
   const [data, setData] = useState<any[]>([]);
   const [userData, setUserData] = useState<any>([]);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -75,6 +75,12 @@ const Home: React.FC<Props> = () => {
             /> */}
             </View>
           )}
+          {/* <Button
+            title="Open Camera"
+            onPress={() => {
+              navigation.navigate('CameraView');
+            }}
+          /> */}
         </ScrollView>
       </View>
     </>

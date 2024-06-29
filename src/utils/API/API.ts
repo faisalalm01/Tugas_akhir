@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
   DataResponse,
-  Image,
+  // Image,
   LoginResponse,
   OtpVerif,
   RegisterResponse,
@@ -104,7 +104,7 @@ export const userUpdate = async (
   id: string,
   username: string,
   notelp: string,
-  image: Image | null,
+  image: {uri: string; type: string; name: string} | null = null,
 ): Promise<UserUpdateResponse> => {
   try {
     const token = await AsyncStorage.getItem('token');
@@ -118,26 +118,23 @@ export const userUpdate = async (
       formData.append('image', {
         uri: image.uri,
         type: image.type,
-        name: image.fileName,
-      } as any);
+        name: image.name,
+      });
     }
-    const response = await axios.put<UserUpdateResponse>(
-      `${BaseUrl}/user/update/${id}`,
-      formData,
-      {
-        headers: {
-          Authorization: `bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
+    const response = await axios.put(`${BaseUrl}/user/update/${id}`, formData, {
+      headers: {
+        Authorization: `bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
       },
-    );
+    });
     // console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       console.error('API error:', error.response.data);
     } else {
-      console.error('Fetch data error:', error);
+      console.log(error);
+      console.error('Update data error:', error);
     }
     throw error;
   }

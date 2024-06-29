@@ -7,6 +7,11 @@ import Register from '../pages/Register/Register.view';
 import MainNavigator from './MainRoot';
 import DetailHistory from '../pages/DetailHistory/DetailHistory.view';
 import Otp from '../pages/Otp/Otp.view';
+import userDetail from '../pages/userDetail/userDetail.view';
+import AddCctv from '../pages/AddCctvIp/addCctv.view';
+import CctvDetail from '../pages/CctvDetail/cctvDetail.view';
+import Notif from '../pages/Notification/Notif.view';
+// import CameraComponent from '../pages/CameraApp/Camera.view';
 // import {checkTokens} from '../utils/checkToken'; // Pastikan path sesuai
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +31,11 @@ const RootNavigator = () => (
     <Stack.Screen name="OnBoarding" component={OnBoarding} />
     <Stack.Screen name="DetailHistory" component={DetailHistory} />
     <Stack.Screen name="OtpVerif" component={Otp} />
+    <Stack.Screen name="DetailUser" component={userDetail} />
+    <Stack.Screen name="AddCctvIp" component={AddCctv} />
+    <Stack.Screen name="DetailCctv" component={CctvDetail} />
+    <Stack.Screen name="Notification" component={Notif} />
+    {/* <Stack.Screen name="CameraView" component={CameraComponent} /> */}
   </Stack.Navigator>
 );
 

@@ -11,6 +11,11 @@ type RootStackParamList = {
   History: undefined;
   DetailHistory: {id: string};
   OtpVerif: {email: string};
+  DetailUser: undefined;
+  AddCctvIp: undefined;
+  DetailCctv: {id: string};
+  CameraView: undefined;
+  Notification: undefined;
   // tambahkan layar lain di sini jika diperlukan
 } & ParamListBase;
 

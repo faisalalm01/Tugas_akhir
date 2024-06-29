@@ -78,14 +78,16 @@ const Profile: React.FC<Props> = ({navigation}) => {
               name={'edit'}
               size={30}
               color={'#909090'}
-              onPress={() => {}}
+              onPress={() => {
+                navigation.navigate('DetailUser');
+              }}
             />
           </View>
         </View>
-        <CardComponent
+        {/* <CardComponent
           icon={IconName.MaterialIcons.Refresh}
           text={'Change image'}
-        />
+        /> */}
         <CardComponent
           icon={IconName.MaterialIcons.Notif}
           text={'Notification'}

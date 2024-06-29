@@ -2,8 +2,14 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import ButtonSecondary from './ButtonSecondary';
 import {IconName} from './Icon';
+// import {NavigationProps} from '../utils/Navigator';
 
-const HeaderComponenet = () => {
+type Props = {
+  pressAdd?: () => void;
+  pressNotif?: () => void;
+};
+
+const HeaderComponent: React.FC<Props> = ({pressAdd, pressNotif}) => {
   return (
     <View style={styles.container}>
       {/* <StatusBar
@@ -12,16 +18,19 @@ const HeaderComponenet = () => {
         translucent
       /> */}
       <View>
-        <ButtonSecondary icon={IconName.Ionicons.Add} />
+        <ButtonSecondary icon={IconName.Ionicons.Add} onPress={pressAdd} />
       </View>
       <View>
-        <ButtonSecondary icon={IconName.Ionicons.Notification} />
+        <ButtonSecondary
+          icon={IconName.Ionicons.Notification}
+          onPress={pressNotif}
+        />
       </View>
     </View>
   );
 };
 
-export default HeaderComponenet;
+export default HeaderComponent;
 
 const styles = StyleSheet.create({
   container: {

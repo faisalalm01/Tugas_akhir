@@ -4,14 +4,26 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../pages/Home/Home.view';
 import History from '../pages/History/History.view';
 import Profile from '../pages/Profile/Profile.view';
-import HeaderComponenet from '../components/HeaderComponenet';
+import HeaderComponent from '../components/HeaderComponenet';
+import {NavigationProps} from '../utils/Navigator';
+
+type Props = {
+  navigation: NavigationProps;
+};
 
 const Tab = createBottomTabNavigator();
 
-const MainNavigator = () => {
+const MainNavigator: React.FC<Props> = ({navigation}) => {
   return (
     <>
-      <HeaderComponenet />
+      <HeaderComponent
+        pressAdd={() => {
+          navigation.navigate('AddCctvIp');
+        }}
+        pressNotif={() => {
+          navigation.navigate('Notification');
+        }}
+      />
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
