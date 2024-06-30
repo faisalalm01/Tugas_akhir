@@ -11,7 +11,7 @@ import userDetail from '../pages/userDetail/userDetail.view';
 import AddCctv from '../pages/AddCctvIp/addCctv.view';
 import CctvDetail from '../pages/CctvDetail/cctvDetail.view';
 import Notif from '../pages/Notification/Notif.view';
-// import CameraComponent from '../pages/CameraApp/Camera.view';
+import CameraView from '../pages/CameraApp/Camera.view';
 // import {checkTokens} from '../utils/checkToken'; // Pastikan path sesuai
 
 const Stack = createNativeStackNavigator();
@@ -35,7 +35,7 @@ const RootNavigator = () => (
     <Stack.Screen name="AddCctvIp" component={AddCctv} />
     <Stack.Screen name="DetailCctv" component={CctvDetail} />
     <Stack.Screen name="Notification" component={Notif} />
-    {/* <Stack.Screen name="CameraView" component={CameraComponent} /> */}
+    <Stack.Screen name="CameraView" component={CameraView} />
   </Stack.Navigator>
 );
 

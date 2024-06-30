@@ -60,7 +60,9 @@ const Home: React.FC<Props> = ({navigation}) => {
           ) : (
             <View style={{rowGap: 10, marginBottom: 200}}>
               {data.map(item => (
-                <View key={item.id}>
+                <View
+                  key={item.id}
+                  onTouchMove={() => navigation.navigate('CameraView')}>
                   <Image
                     id={item.id}
                     source={require('../../assets/Homepage-Home.png')}

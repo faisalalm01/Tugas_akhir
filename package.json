@@ -19,6 +19,8 @@
     "@react-navigation/native-stack": "^6.9.26",
     "@react-navigation/stack": "^6.3.29",
     "@reduxjs/toolkit": "^2.2.4",
+    "@tensorflow/tfjs": "^4.20.0",
+    "@tensorflow/tfjs-react-native": "^1.0.0",
     "axios": "^1.6.8",
     "react": "18.2.0",
     "react-native": "0.73.6",

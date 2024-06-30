@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect} from 'react';
-import {Image, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import SplashStyle from './Splash.style';
 import {StackActions} from '@react-navigation/native';
 import {NavigationProps} from '../../utils/Navigator';
@@ -23,10 +23,10 @@ const Splash: React.FC<Props> = ({navigation}) => {
       <View style={SplashStyle.Container}>
         <Image
           source={require('../../assets/icon.png')}
-          style={{width: 100, height: 100, resizeMode: 'contain'}}
+          style={{width: 200, height: 200, resizeMode: 'contain'}}
           resizeMode="contain"
         />
-        {/* <Text style={SplashStyle.textHeader}>Splash Screen</Text> */}
+        <Text style={SplashStyle.textHeader}>Crime Detection</Text>
       </View>
     </>
   );

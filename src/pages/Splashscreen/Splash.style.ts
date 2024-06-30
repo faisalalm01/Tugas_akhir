@@ -7,9 +7,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   textHeader: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: 'white',
+    fontSize: 30,
+    fontWeight: '800',
+    color: 'black',
   },
   IconStyle: {
     padding: 20,
