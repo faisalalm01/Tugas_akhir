@@ -130,7 +130,7 @@ def save_detected_image(frame_detected, detected_names, user_id, ip):
         print(f"Error saving detection result: {e}")
 
 def capture_and_detect(cctv, user_id):
-    stream_url = f"rtsp://{cctv.username}:{cctv.password}@{cctv.ip}:{cctv.port}/{cctv.path}"
+    stream_url = f"rtsp://{cctv.userIp}:{cctv.passwordUser}@{cctv.ip}:{cctv.port}/{cctv.path}"
     cap = cv2.VideoCapture(stream_url, cv2.CAP_FFMPEG)
     cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
     cap.set(cv2.CAP_PROP_OPEN_TIMEOUT_MSEC, 30000)

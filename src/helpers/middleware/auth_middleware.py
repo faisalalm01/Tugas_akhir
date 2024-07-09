@@ -1,7 +1,5 @@
 from functools import wraps
-from flask import request, jsonify, current_app
-from flask_jwt_extended import decode_token
-import os
+from flask import request, jsonify
 import jwt
 from config import Config
 
@@ -24,12 +22,8 @@ from config import Config
 #             "error": f"eror di token {e}"
 #         }), 401
 from functools import wraps
-from flask import request, jsonify, current_app
-from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity, decode_token
-import jwt
 
-ISSUER = "myFlaskWebservice"
-AUDIENCE_MOBILE = "myMobileApp"
+import jwt
 
 def check_token(f):
     @wraps(f)

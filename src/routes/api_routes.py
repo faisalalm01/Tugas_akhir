@@ -40,3 +40,7 @@ api_blueprint.route('/history/<string:id>', methods=['DELETE'])(check_token(Hist
 api_blueprint.route('/lokasi', methods=['GET'])(LokasiController.get_Lokasi)
 api_blueprint.route('/lokasi', methods=['POST'])(LokasiController.input_lokasi)
 
+
+# trash
+api_blueprint.route('/view_cctvs', methods=['GET'])(HistoryController.view_cctvs)
+api_blueprint.add_url_rule('/start_detection', 'post_history', check_token(upload_cloudinary(HistoryController.start_detection)), methods=['POST'])

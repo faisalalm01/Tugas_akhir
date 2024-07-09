@@ -1,0 +1,23 @@
+<!-- cctv_view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View CCTV</title>
+</head>
+<body>
+    <h1>Available CCTV Streams</h1>
+    <ul>
+        {% for cctv in cctvs %}
+            <li>
+                <h3>{{ cctv.name }}</h3>
+                <p>Location: {{ cctv.location }}</p>
+                <p>Stream URL: <a href="{{ cctv.stream_url }}">{{ cctv.stream_url }}</a></p>
+            </li>
+        {% endfor %}
+    </ul>
+    <form action="/start_detection" method="post" enctype="multipart/form-data">
+        <button type="submit">Start Detection</button>
+    </form>
+</body>
+</html>

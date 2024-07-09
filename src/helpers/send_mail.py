@@ -9,8 +9,8 @@ def send_verification_email(email, username):
         msg = Message(subject="Email Verification",
                       sender=current_app.config['MAIL_USERNAME'],
                       recipients=[email])
-        # msg.html = render_template('emailverif.html', otp=otp, username=username)
-        msg.html = f'<div style="text-align: center;"><h1>Kode Otp:</h1><b style="font-size: 24px">{otp}</b></div>'
+        msg.html = render_template('emailverif.html', otp=otp, username=username)
+        # msg.html = f'<div style="text-align: center;"><h1>Kode Otp:</h1><b style="font-size: 24px">{otp}</b></div>'
         # msg.body = f'{otp}'
         mail.send(msg)
     except Exception as e:
