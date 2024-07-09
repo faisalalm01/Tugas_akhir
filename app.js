@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(morgan('dev'));
 app.use(cors());
 
-// konfig https
+// konfig  https
 // const options = {
 //   key: fs.readFileSync(process.env.SERVER_KEY),
 //   cert: fs.readFileSync(process.env.SERVER_CERT)

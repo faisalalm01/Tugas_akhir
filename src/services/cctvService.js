@@ -8,7 +8,7 @@ exports.inputIpCctvCamera = async (req, res) => {
   try {
     const id = uuid4();
     const idUser = req.token;
-    const { ip, lokasiCamera, userIp, passwordUser, path } = req.body;
+    const { ip, lokasiCamera, userIp, passwordUser, path, port } = req.body;
     const image = req.Image.url;
     const postCamera = await prisma.cctv.create({
       data: {
@@ -18,6 +18,7 @@ exports.inputIpCctvCamera = async (req, res) => {
         ip: ip,
         path: path,
         idUser: idUser,
+        port: port,
         lokasiCamera: lokasiCamera,
         image: image,
       }
