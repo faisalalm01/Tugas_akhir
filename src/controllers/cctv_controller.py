@@ -21,6 +21,7 @@ class CctvController:
             port = request.form.get('port')
             # image = request.form.get('Image').get('url')
             image = request.image_url if request.image_url else None
+            # image = request.form.get('image_url') if request.form.get('image_url') else None
 
             post_camera = Cctv(
                 id=id, 
@@ -29,8 +30,9 @@ class CctvController:
                 lokasiCamera=lokasiCamera,
                 userIp=userIp, 
                 passwordUser=passwordUser, 
-                path=path, port=port, 
-                image=image
+                path=path, 
+                image=image,
+                port=port, 
                 )
             db.session.add(post_camera)
             db.session.commit()
@@ -43,8 +45,8 @@ class CctvController:
                 'userIp': post_camera.userIp,
                 'passwordUser': post_camera.passwordUser,
                 'path': post_camera.path,
-                'port': post_camera.port,
                 'image': post_camera.image,
+                'port': post_camera.port,
                 }
 
             return {'message': 'success', 'code': 200, 'data': response_data}

@@ -26,3 +26,38 @@ class UserController:
         except Exception as e:
             print(e)
             return {'message': 'failed', 'code': 400, 'error': e}
+
+     def update_user_detail():
+        try:
+            id = request.token
+            username = request.form.get('username')
+            notelp = request.form.get('notelp')
+            image = request.image_url if request.image_url else None
+
+            user = User.query.filter_by(id=id).first()
+            if not user:
+                return {'message': 'User not found', 'code': 404, 'data': None}
+
+            # user.username = username
+            # user.notelp = notelp
+            # user.image = image
+            if username:
+                user.username = username
+            if notelp:
+                user.notelp = notelp
+            if image:
+                user.image = image
+
+
+            db.session.commit()
+
+            new_user_detail = {
+                'image': user.image,
+                'username': user.username,
+                'notelp': user.notelp,
+            }
+
+            return {'message': 'success', 'code': 200, 'data': new_user_detail}
+        except Exception as e:
+            print(e)
+            return {'message': 'failed', 'code': 400, 'error': e}
