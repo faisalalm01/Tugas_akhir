@@ -2,9 +2,9 @@
 import React, {useEffect} from 'react';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {View, Text, TouchableOpacity} from 'react-native';
-// import '@tensorflow/tfjs-react-nartive';
 import CameraStyle from './Camera.style';
 import {NavigationProps} from '../../utils/Navigator';
+import Video from 'react-native-video';
 
 type Props = {
   navigation: NavigationProps;
@@ -13,8 +13,6 @@ type Props = {
 const CameraView: React.FC<Props> = ({navigation}) => {
   const devices = useCameraDevices();
   const device = devices.find(d => d.position === 'back');
-  //   const cameraRef = useRef(null);
-  //   const modelRef = useRef<tf.GraphModel | null>(null);
 
   useEffect(() => {
     const requestPermission = async () => {
@@ -24,15 +22,7 @@ const CameraView: React.FC<Props> = ({navigation}) => {
       }
     };
 
-    // const loadModel = async () => {
-    //   await tf.ready();
-    //   // Ganti dengan path ke model YOLOv5 yang telah dikonversi
-    //   const model = await tf.loadGraphModel('./assets/model/model.json');
-    //   modelRef.current = model;
-    // };
-
     requestPermission();
-    // loadModel();
   }, []);
 
   if (device == null) {
@@ -45,13 +35,13 @@ const CameraView: React.FC<Props> = ({navigation}) => {
 
   return (
     <>
-      <Camera
+      <Video
+        source={{uri: 'rtsp://admin:RETCMV@192.168.56.1:554/H.264'}}
         style={CameraStyle.CameraStyle}
-        device={device}
-        isActive={true}
-        // frameProcessor={frameProcessor}
-        // fps={1}
+        resizeMode="cover"
+        controls={true}
       />
+      {/* <Camera style={CameraStyle.CameraStyle} device={device} isActive={true} /> */}
       <View
         style={{
           paddingHorizontal: 20,

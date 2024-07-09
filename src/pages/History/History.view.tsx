@@ -7,6 +7,7 @@ import FilterComponent from '../../components/FilterComponent';
 import {NavigationProps} from '../../utils/Navigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getDataHistory} from '../../utils/API/API';
+import Icon from 'react-native-vector-icons/Feather';
 
 type Props = {
   navigation: NavigationProps;
@@ -53,42 +54,50 @@ const History: React.FC<Props> = ({navigation}) => {
         <Text style={HistoryStyle.textHeader}>History</Text>
       </View>
       <View style={{marginHorizontal: 15}}>
-        <ScrollView
-          horizontal
-          contentContainerStyle={HistoryStyle.scrollViewContainer}>
-          {locations.map(location => (
-            <FilterComponent
-              key={location}
-              name={location}
-              // isActive={filter === location}
-              onPress={() => setFilter(location)}
-            />
-          ))}
-          {/* <FilterComponent name="All" />
-          <FilterComponent name="Garrage" />
-          <FilterComponent name="Room1" />
-          <FilterComponent name="Outside" />
-          <FilterComponent name="Room2" />
-          <FilterComponent name="Parking" /> */}
-        </ScrollView>
-        <ScrollView style={{marginBottom: 45}}>
-          {filteredData.map(item => (
-            <TouchableOpacity
-              key={item.id}
-              onPress={() =>
-                navigation.navigate('DetailHistory', {id: item.id})
-              }>
-              <CardList
-                title={item.nama}
-                date={item.createdAt.slice(0, 10)}
-                tagline={item.lokasi}
-              />
-            </TouchableOpacity>
-          ))}
-          {/* <CardList title="Perampokan" date="24/07/2024" tagline="Garage" />
-          <CardList title="Pencurian" date="24/07/2024" tagline="room2" />
-          <CardList title="Penculikan" date="24/07/2024" tagline="Garage" /> */}
-        </ScrollView>
+        {filteredData?.length === 0 ? (
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 50,
+              gap: 20,
+            }}>
+            <Text style={{color: 'gray', fontSize: 20, fontWeight: 'bold'}}>
+              Data Not Found, Add "+" Your CCTV
+            </Text>
+            <Icon name="slash" color={'#BABABA'} size={150} />
+          </View>
+        ) : (
+          <>
+            <ScrollView
+              horizontal
+              contentContainerStyle={HistoryStyle.scrollViewContainer}>
+              {locations.map(location => (
+                <FilterComponent
+                  key={location}
+                  name={location}
+                  // isActive={filter === location}
+                  onPress={() => setFilter(location)}
+                />
+              ))}
+            </ScrollView>
+            <ScrollView style={{marginBottom: 45}}>
+              {filteredData.map(item => (
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() =>
+                    navigation.navigate('DetailHistory', {id: item.id})
+                  }>
+                  <CardList
+                    title={item.nama}
+                    date={item.createdAt.slice(0, 10)}
+                    tagline={item.lokasi}
+                  />
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </>
+        )}
       </View>
     </>
   );

@@ -28,7 +28,7 @@ const Register: React.FC<Props> = ({navigation}) => {
       );
 
       if (response.code === 200) {
-        console.log('Registration success');
+        Alert.alert('Registration success');
         navigation.navigate('OtpVerif', {email});
       } else {
         Alert.alert('Registration failed', response.message || 'Unknown error');

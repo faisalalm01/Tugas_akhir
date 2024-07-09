@@ -26,6 +26,7 @@ const Login: React.FC<PropsHome> = ({navigation}) => {
       if (response.code === 200) {
         navigation.navigate('Main');
         console.log(response);
+        Alert.alert('Login Success');
       }
     } catch (error) {
       console.log('API error:', error);
@@ -62,7 +63,7 @@ const Login: React.FC<PropsHome> = ({navigation}) => {
               onChangeText={setPassword}
             />
           </View>
-          <Text
+          {/* <Text
             style={{
               color: 'blue',
               fontWeight: '500',
@@ -70,7 +71,7 @@ const Login: React.FC<PropsHome> = ({navigation}) => {
               textAlign: 'right',
             }}>
             Forgot password ?
-          </Text>
+          </Text> */}
           <ButtonPrimary title={'Sign in'} onPress={handleLogin} />
           {loginError && <Text style={{color: 'red'}}>{loginError}</Text>}
         </View>

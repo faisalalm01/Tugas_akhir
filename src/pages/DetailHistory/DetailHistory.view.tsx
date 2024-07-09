@@ -73,7 +73,8 @@ const DetailHistory: React.FC<Props> = ({navigation}) => {
             />
             <View style={{paddingTop: 35}}>
               <Text style={{fontSize: 15, color: 'black'}}>IP Camera</Text>
-              <Text style={DetaHistoryStyle.textColor}>{history.cctv?.ip}</Text>
+              {/* <Text style={DetaHistoryStyle.textColor}>{history.cctv?.ip}</Text> */}
+              <Text style={DetaHistoryStyle.textColor}>{history.ip}</Text>
             </View>
             <View
               style={{

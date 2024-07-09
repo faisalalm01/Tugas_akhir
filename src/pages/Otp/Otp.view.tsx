@@ -22,7 +22,7 @@ const Otp: React.FC<Props> = ({navigation, route}) => {
 
       if (response.code === 200) {
         console.log('Verify success');
-        navigation.navigate('Main');
+        navigation.navigate('Login');
       } else {
         Alert.alert('Verify failed', response.message || 'Unknown error');
       }

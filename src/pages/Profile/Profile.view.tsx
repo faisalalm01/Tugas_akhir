@@ -15,8 +15,6 @@ type Props = {
 
 const Profile: React.FC<Props> = ({navigation}) => {
   const [data, setData] = useState<any>([]);
-  // const token = AsyncStorage.getItem('token');
-  // console.log(token);
 
   const fetchData = async () => {
     try {
@@ -35,7 +33,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
       }
     };
     checkLoginStatus();
-  }, []);
+  }, [data]);
 
   const handleLogout = async () => {
     try {

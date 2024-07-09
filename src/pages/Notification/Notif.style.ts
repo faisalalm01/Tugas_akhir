@@ -3,26 +3,28 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   Container: {
     flex: 1,
-    alignItems: 'center',
   },
   textHeader: {
     fontSize: 30,
     fontWeight: 'bold',
     color: 'black',
-    marginVertical: 35,
+    marginVertical: 20,
+    paddingBottom: 20,
   },
-  cardProfile: {
-    backgroundColor: '#E4EBF3',
-    borderRadius: 15,
-    paddingHorizontal: 25,
-    paddingVertical: 15,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+  containerlist: {
+    paddingHorizontal: 15,
+    paddingVertical: 20,
   },
-  circle: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    backgroundColor: '#D9D9D9',
+  box: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingTop: 50,
+    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });

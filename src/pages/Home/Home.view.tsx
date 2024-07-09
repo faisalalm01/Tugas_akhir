@@ -9,21 +9,21 @@ import {getDataCctv, userDetail} from '../../utils/API/API';
 
 type Props = {
   navigation: NavigationProps;
+  route: any; // menambahkan tipe untuk route
 };
 
-const Home: React.FC<Props> = ({navigation}) => {
+const Home: React.FC<Props> = ({navigation, route}) => {
   const [data, setData] = useState<any[]>([]);
-  const [userData, setUserData] = useState<any>([]);
+  const [userData, setUserData] = useState<any>({});
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  // const token = AsyncStorage.getItem('token');
-  // console.log(token);
+  const [refresh, setRefresh] = useState<boolean>(false); // Tambahkan state refresh
 
   const fetchData = async () => {
     try {
-      const responseData = await getDataCctv();
+      // const responseData = await getDataCctv();
       const responseUserData = await userDetail();
       setUserData(responseUserData.data);
-      setData(responseData.data);
+      // setData(responseData.data);
     } catch (error) {
       console.error('Fetch data error:', error);
     }
@@ -35,10 +35,25 @@ const Home: React.FC<Props> = ({navigation}) => {
       if (token) {
         setIsLoggedIn(true);
         fetchData();
+        setRefresh(true);
       }
     };
     checkLoginStatus();
-  }, []);
+  }, [refresh]);
+
+  useEffect(() => {
+    const dataCctv = async () => {
+      const responseData = await getDataCctv();
+      if (responseData) {
+        setData(responseData.data);
+      }
+    };
+    dataCctv();
+    setRefresh(true);
+    // if (route.params && route.params.refresh) {
+    //   fetchData();
+    // }
+  }, [refresh]);
 
   return (
     <>
@@ -53,36 +68,39 @@ const Home: React.FC<Props> = ({navigation}) => {
           <Text style={HomeStyle.textHeader}>Be sure of your safety</Text>
         </View>
         <ScrollView>
-          {data?.length === 0 ? (
-            <>
-              <Text style={{color: 'black'}}>Data Not Found</Text>
-            </>
+          {data.length === 0 ? (
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={{color: 'gray', fontSize: 20, fontWeight: 'bold'}}>
+                Data Not Found, Add "+" Your CCTV
+              </Text>
+            </View>
           ) : (
             <View style={{rowGap: 10, marginBottom: 200}}>
               {data.map(item => (
                 <View
                   key={item.id}
-                  onTouchMove={() => navigation.navigate('CameraView')}>
+                  onTouchMove={() => navigation.navigate('CameraView')}
+                  style={{width: '100%', height: 135, borderRadius: 15}}>
                   <Image
-                    id={item.id}
-                    source={require('../../assets/Homepage-Home.png')}
-                    style={{width: '100%', height: 135, borderRadius: 15}}
+                    source={
+                      item.image
+                        ? {uri: item.image}
+                        : require('../../assets/Frame_banner.png')
+                    }
+                    style={{
+                      flex: 1,
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: 15,
+                      borderWidth: 0.5,
+                      borderColor: 'black',
+                    }}
                   />
-                  {/* <Text style={{color: 'black'}}>{item.lokasiCamera}</Text> */}
+                  <Text style={HomeStyle.tag}>{item.lokasiCamera}</Text>
                 </View>
               ))}
-              {/* <Image
-              source={require('../../assets/Homepage-Home.png')}
-              style={{width: '100%', height: 135, borderRadius: 15}}
-            /> */}
             </View>
           )}
-          {/* <Button
-            title="Open Camera"
-            onPress={() => {
-              navigation.navigate('CameraView');
-            }}
-          /> */}
         </ScrollView>
       </View>
     </>

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
   DataResponse,
-  // Image,
   LoginResponse,
   OtpVerif,
   RegisterResponse,
@@ -88,7 +87,7 @@ export const userDetail = async () => {
         'Content-Type': 'application/json',
       },
     });
-    // console.log(response.data);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -152,7 +151,7 @@ export const getDataCctv = async (): Promise<DataResponse> => {
         'Content-Type': 'application/json',
       },
     });
-    // console.log(response.data);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     const token = await AsyncStorage.getItem('token');
@@ -168,9 +167,46 @@ export const getDataCctv = async (): Promise<DataResponse> => {
   }
 };
 
-export const inputCctv = async () => {
+export const inputCctv = async (
+  ip: string,
+  lokasiCamera: string,
+  userIp: string,
+  passwordUser: string,
+  path: string,
+  port: string,
+  image: {uri: string; type: string; name: string} | null = null,
+): Promise<UserUpdateResponse> => {
   try {
-  } catch (error) {}
+    const token = await AsyncStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+    const formData = new FormData();
+    formData.append('ip', ip);
+    formData.append('lokasiCamera', lokasiCamera);
+    formData.append('userIp', userIp);
+    formData.append('passwordUser', passwordUser);
+    formData.append('path', path);
+    formData.append('port', port);
+    if (image) {
+      formData.append('image', {
+        uri: image.uri,
+        type: image.type,
+        name: image.name,
+      });
+    }
+    const response = await axios.post(`${BaseUrl}/cctv`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    console.error('Error inputting CCTV camera data', error);
+    throw error;
+  }
 };
 
 export const getDataHistory = async (page = 1, limit = 7, lokasi?: string) => {
