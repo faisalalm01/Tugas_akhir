@@ -9,9 +9,14 @@ from src.helpers.token import generate_token
 class AuthController:
     @staticmethod
     def sign_in():
-        data = request.get_json()
-        email = data.get('email')
-        password = data.get('password')
+        if request.is_json:
+            data = request.get_json()
+            email = data.get('email')
+            password = data.get('password')
+        else:
+            email = request.form.get('email')
+            password = request.form.get('password')
+
 
         if not email or not password:
             return jsonify({'message': 'Missing email or password', 'code': 400}), 400
@@ -28,47 +33,77 @@ class AuthController:
 
     @staticmethod
     def sign_up():
-        data = request.get_json()
-        username = data.get('username')
-        email = data.get('email')
-        notelp = data.get('notelp')
-        password = bcrypt.hashpw(data.get('password').encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-        id = str(uuid4())
+        # data = request.get_json()
+        # username = data.get('username')
+        # email = data.get('email')
+        # notelp = data.get('notelp')
+        # password = bcrypt.hashpw(data.get('password').encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        # id = str(uuid4())
+        # otp = send_verification_email(email, username)
+        if request.is_json:
+            data = request.get_json()
+            username = data.get('username')
+            email = data.get('email')
+            notelp = data.get('notelp')
+            password = data.get('password')
+        else:
+            username = request.form.get('username')
+            email = request.form.get('email')
+            notelp = request.form.get('notelp')
+            password = request.form.get('password')
+
+        if not username or not email or not notelp or not password:
+            return jsonify({'msg': 'All fields are required', 'status': 400}), 400
+        
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         otp = send_verification_email(email, username)
 
         try:
-            user = User(id=id, username=username, email=email, password=password, notelp=notelp, otp=otp)
+            user = User(id=id, username=username, email=email, password=hashed_password, notelp=notelp, otp=otp)
             db.session.add(user)
             db.session.commit()
-            return {'message': 'User registered successfully', "code": 200, 'data': user.username}
+            return {'message': 'User registered successfully', "code": 200, 'data': user.email}
         except IntegrityError:
             db.session.rollback()
             return jsonify({'message': 'Email already exists', "code": 400})
         except Exception as e:
             return jsonify({'message': 'Internal server error', "code": 500, 'error': str(e)})
 
-    @staticmethod
     def verify():
-        email = request.form.get('email')
-        otp = request.form.get('otp')
+        if request.is_json:
+            data = request.get_json()
+            email = data.get('email')
+            otp = data.get('otp')
+        else:
+            email = request.form.get('email')
+            otp = request.form.get('otp')
+        try:
+            user = User.query.filter_by(email=email).first()
+            print(user)
+            if not user:
+                return jsonify({'message': 'User not found', 'code': 404}), 404
 
-        user = User.query.filter_by(email=email).first()
+            if user.otp != otp:
+                return jsonify({'message': 'Invalid OTP', 'code': 400}), 400
 
-        if not user:
-            return jsonify({'message': 'User not found', 'code': 404}), 404
+            user.isVerif = True
+            user.otp = None
+            db.session.commit()
+            return jsonify({'message': 'User verified successfully', 'code': 200, 'data': user.username}), 200
+        
+        except Exception as e:
 
-        if user.otp != otp:
-            return jsonify({'message': 'Invalid OTP', 'code': 400}), 400
-
-        user.isVerif = True
-        user.otp = None
-        db.session.commit()
-
-        return jsonify({'message': 'User verified successfully', 'code': 200, 'data': user.username}), 200
+            return jsonify({'message': 'Internal server error', "code": 500, 'error': str(e)})
 
     @staticmethod
     def resend_otp():
-        email = request.form.get('email')
+        # data = request.get_json()
+        # email = data.get('email')
+        if request.is_json:
+            data = request.get_json()
+            email = data.get('email')
+        else:
+            email = request.form.get('email')
 
         user = User.query.filter_by(email=email).first()
 

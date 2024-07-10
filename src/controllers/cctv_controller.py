@@ -19,8 +19,8 @@ class CctvController:
             passwordUser = request.form.get('passwordUser')
             path = request.form.get('path')
             port = request.form.get('port')
-            # image = request.form.get('Image').get('url')
             image = request.image_url if request.image_url else None
+            # image = request.form.get('Image').get('url')
             # image = request.form.get('image_url') if request.form.get('image_url') else None
 
             post_camera = Cctv(

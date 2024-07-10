@@ -21,7 +21,7 @@ def home():
 
 api_blueprint.route('/login', methods=['POST'])(AuthController.sign_in)
 api_blueprint.route('/register', methods=['POST'])(AuthController.sign_up)
-api_blueprint.route('/verify', methods=['POST'])(AuthController.verify)
+api_blueprint.add_url_rule('verify', 'post_verify', AuthController.verify, methods=['POST'])
 api_blueprint.route('/resend-otp', methods=['POST'])(AuthController.resend_otp)
 
 api_blueprint.route('/user/detail', methods=['GET'])(check_token(UserController.get_detail_user))

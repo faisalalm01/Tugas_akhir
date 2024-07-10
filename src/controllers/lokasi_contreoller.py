@@ -12,7 +12,11 @@ class LokasiController:
     def input_lokasi():
         try:
             id = str(uuid4())
-            namaLokasi = request.form.get('namaLokasi')
+            if request.is_json:
+                data = request.get_json()
+                namaLokasi = data.get('namaLokasi')
+            else:
+                namaLokasi = request.form.get('namaLokasi')
 
             post_lokasi = Lokasi(
                 id=id,
