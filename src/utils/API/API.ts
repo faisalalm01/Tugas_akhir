@@ -1,8 +1,10 @@
 import axios from 'axios';
 import {
   DataResponse,
+  inputCctvResponse,
+  inputLokasiResponse,
   LoginResponse,
-  OtpVerif,
+  // OtpVerif,
   RegisterResponse,
   UserUpdateResponse,
 } from './types';
@@ -31,10 +33,7 @@ export const registerUser = async (
   }
 };
 
-export const VerifyOtp = async (
-  email: string,
-  otp: string,
-): Promise<OtpVerif> => {
+export const VerifyOtp = async (email: string, otp: string) => {
   try {
     const response = await axios.post(`${BaseUrl}/verify`, {
       email,
@@ -43,8 +42,13 @@ export const VerifyOtp = async (
 
     return response.data;
   } catch (error) {
-    console.error('otp error:', error);
-    return {success: false, message: 'verify failed', code: 500};
+    console.log(error);
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('API error:', error.response.data);
+    } else {
+      console.error('Fetch data error:', error);
+    }
+    throw error;
   }
 };
 
@@ -87,7 +91,6 @@ export const userDetail = async () => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -100,7 +103,6 @@ export const userDetail = async () => {
 };
 
 export const userUpdate = async (
-  id: string,
   username: string,
   notelp: string,
   image: {uri: string; type: string; name: string} | null = null,
@@ -120,13 +122,12 @@ export const userUpdate = async (
         name: image.name,
       });
     }
-    const response = await axios.put(`${BaseUrl}/user/update/${id}`, formData, {
+    const response = await axios.put(`${BaseUrl}/user/update`, formData, {
       headers: {
         Authorization: `bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       },
     });
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -175,7 +176,7 @@ export const inputCctv = async (
   path: string,
   port: string,
   image: {uri: string; type: string; name: string} | null = null,
-): Promise<UserUpdateResponse> => {
+): Promise<inputCctvResponse> => {
   try {
     const token = await AsyncStorage.getItem('token');
     if (!token) {
@@ -205,6 +206,30 @@ export const inputCctv = async (
   } catch (error) {
     console.log(error);
     console.error('Error inputting CCTV camera data', error);
+    throw error;
+  }
+};
+
+export const getDetailCctv = async (id: string) => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+    const response = await axios.get(`${BaseUrl}/cctv/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Ganti dengan token Anda jika diperlukan
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('API error:', error.response.data);
+    } else {
+      console.error('Fetch data error:', error);
+    }
     throw error;
   }
 };
@@ -251,6 +276,48 @@ export const getDetailHistory = async (id: string) => {
       },
     });
 
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('API error:', error.response.data);
+    } else {
+      console.error('Fetch data error:', error);
+    }
+    throw error;
+  }
+};
+
+export const getDataLokasi = async (): Promise<DataResponse> => {
+  try {
+    const response = await axios.get(`${BaseUrl}/lokasi`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('API error:', error.response.data);
+    } else {
+      console.error('Fetch data error:', error);
+    }
+    throw error;
+  }
+};
+
+export const inputLokasi = async (
+  namaLokasi: string,
+): Promise<inputLokasiResponse> => {
+  try {
+    const response = await axios.post(
+      `${BaseUrl}/lokasi`,
+      {namaLokasi},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

@@ -39,7 +39,7 @@ const Home: React.FC<Props> = ({navigation, route}) => {
       }
     };
     checkLoginStatus();
-  }, [refresh]);
+  }, []);
 
   useEffect(() => {
     const dataCctv = async () => {
@@ -53,7 +53,7 @@ const Home: React.FC<Props> = ({navigation, route}) => {
     // if (route.params && route.params.refresh) {
     //   fetchData();
     // }
-  }, [refresh]);
+  }, [data]);
 
   return (
     <>
@@ -79,7 +79,9 @@ const Home: React.FC<Props> = ({navigation, route}) => {
               {data.map(item => (
                 <View
                   key={item.id}
-                  onTouchMove={() => navigation.navigate('CameraView')}
+                  onTouchMove={() =>
+                    navigation.navigate('CameraView', {id: item.id})
+                  }
                   style={{width: '100%', height: 135, borderRadius: 15}}>
                   <Image
                     source={

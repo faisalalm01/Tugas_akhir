@@ -43,7 +43,7 @@ const History: React.FC<Props> = ({navigation}) => {
       }
     };
     checkLoginStatus();
-  }, []);
+  }, [data]);
 
   const filteredData =
     filter === 'All' ? data : data.filter(item => item.lokasi === filter);

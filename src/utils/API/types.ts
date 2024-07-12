@@ -37,6 +37,7 @@ export interface LoginFailureAction {
 }
 
 export interface DataResponse {
+  [x: string]: any;
   data: [];
   success: boolean;
   code?: number;
@@ -51,6 +52,20 @@ export interface Image {
 }
 
 export interface UserUpdateResponse {
+  success: boolean;
+  code?: number;
+  message?: string;
+  data?: [];
+}
+
+export interface inputCctvResponse {
+  success: boolean;
+  code?: number;
+  message?: string;
+  data?: [];
+}
+
+export interface inputLokasiResponse {
   success: boolean;
   code?: number;
   message?: string;

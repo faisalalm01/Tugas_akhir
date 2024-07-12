@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#477ED0',
     alignItems: 'center',
     borderRadius: 5,
-    marginTop: 50,
+    marginTop: 20,
   },
   ButtonText: {
     fontSize: 18,

@@ -13,10 +13,10 @@ type Props = {
 };
 
 const Register: React.FC<Props> = ({navigation}) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [notelp, setNotelp] = useState('+62');
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [notelp, setNotelp] = useState<string>('+62');
 
   const handleRegister = async () => {
     try {
@@ -29,7 +29,7 @@ const Register: React.FC<Props> = ({navigation}) => {
 
       if (response.code === 200) {
         Alert.alert('Registration success');
-        navigation.navigate('OtpVerif', {email});
+        navigation.navigate('OtpVerif', {email: email});
       } else {
         Alert.alert('Registration failed', response.message || 'Unknown error');
       }

@@ -8,13 +8,20 @@ import {userDetail, userUpdate} from '../../utils/API/API';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {TextInput} from 'react-native-paper';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import {Image} from 'react-native';
+import {NavigationProps} from '../../utils/Navigator';
 
-const UserDetail = () => {
+type Props = {
+  navigation: NavigationProps;
+};
+
+const UserDetail: React.FC<Props> = ({navigation}) => {
   const [user, setUser] = useState<any>(null);
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [notelp, setNotelp] = useState<string>('');
   const [image, setImage] = useState<any>(null);
+  const [initialImage, setInitialImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserDetail = async () => {
@@ -25,6 +32,9 @@ const UserDetail = () => {
         setEmail(responseData.data.email);
         setNotelp(responseData.data.notelp);
         setImage(responseData.data.image);
+        if (responseData.data.image) {
+          setInitialImage(responseData.data.image);
+        }
       } catch (error) {
         console.log(error);
         console.error('Fetch user detail error:', error);
@@ -32,7 +42,7 @@ const UserDetail = () => {
     };
 
     fetchUserDetail();
-  }, [user]);
+  }, []);
 
   const handleImagePicker = () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
@@ -41,7 +51,12 @@ const UserDetail = () => {
       } else if (response.errorMessage) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else if (response.assets && response.assets.length > 0) {
-        setImage(response.assets[0]);
+        const asset = response.assets[0];
+        setImage({
+          uri: asset.uri || '',
+          type: asset.type || '',
+          name: asset.fileName || '',
+        });
       }
     });
   };
@@ -49,6 +64,7 @@ const UserDetail = () => {
   const handleUpdate = async () => {
     try {
       await userUpdate(username, notelp, image);
+      navigation.navigate('Profile');
       Alert.alert('Success', 'User details updated successfully');
     } catch (error) {
       Alert.alert('Error', 'Failed to update user details');
@@ -71,9 +87,25 @@ const UserDetail = () => {
               <View style={userDetailStyle.cardPhoto} />
               <TouchableOpacity
                 onPress={handleImagePicker}
-                style={userDetailStyle.imageDisplay}
-              />
+                style={userDetailStyle.imageDisplay}>
+                {image && image.uri ? (
+                  <Image
+                    source={{uri: image.uri}}
+                    style={userDetailStyle.imageStyle}
+                  />
+                ) : (
+                  <Image
+                    source={
+                      initialImage
+                        ? {uri: initialImage}
+                        : require('../../assets/profile.png')
+                    }
+                    style={userDetailStyle.imageStyle}
+                  />
+                )}
+              </TouchableOpacity>
             </View>
+            {/* <Text style={userDetailStyle.FormInput}>{username}</Text> */}
             <TextInput
               placeholderTextColor={'#BFBFBF'}
               placeholder="username"

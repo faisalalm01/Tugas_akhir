@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ProfileStyle from './Profile.style';
 import CardComponent from '../../components/CardComponent';
@@ -58,7 +58,14 @@ const Profile: React.FC<Props> = ({navigation}) => {
         <View style={ProfileStyle.cardProfile}>
           <View style={{flexDirection: 'row'}}>
             <View>
-              <View style={ProfileStyle.circle} />
+              <Image
+                source={
+                  data.image
+                    ? {uri: data.image}
+                    : require('../../assets/profile.png')
+                }
+                style={ProfileStyle.circle}
+              />
             </View>
             <View
               style={{
