@@ -1,23 +1,10 @@
-<!-- cctv_view.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>View CCTV</title>
+    <title>RTSP Video Stream</title>
 </head>
 <body>
-    <h1>Available CCTV Streams</h1>
-    <ul>
-        {% for cctv in cctvs %}
-            <li>
-                <h3>{{ cctv.name }}</h3>
-                <p>Location: {{ cctv.location }}</p>
-                <p>Stream URL: <a href="{{ cctv.stream_url }}">{{ cctv.stream_url }}</a></p>
-            </li>
-        {% endfor %}
-    </ul>
-    <form action="/start_detection" method="post" enctype="multipart/form-data">
-        <button type="submit">Start Detection</button>
-    </form>
+    <h1>RTSP Video Stream</h1>
+    <img src="{{ url_for('api.video_feed', cctv_id='your_cctv_id_here') }}" width="640" height="480">
 </body>
 </html>

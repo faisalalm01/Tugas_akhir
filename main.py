@@ -11,7 +11,7 @@ import cv2
 # from ultralytics import YOLO
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
-from middleware.token import generateOTP
+from src.helpers.token import generateOTP
 import pymysql
 
 app = Flask(__name__)

@@ -4,14 +4,16 @@ from flask_migrate import Migrate
 import logging
 import os
 from dotenv import load_dotenv
-from flask_restx import Api, Resource
-from src.helpers.constant.http_status import STATUS_CODE
-from werkzeug.exceptions import HTTPException, NotFound
+# from flask_restx import Api, Resource
+# from src.helpers.constant.http_status import STATUS_CODE
+# from werkzeug.exceptions import HTTPException, NotFound
 from config import Config
 from src.models import db, init_db
 from flask_mail import Mail
 from flask_jwt_extended import JWTManager
+from src.helpers.middleware.load_model_middleware import Detection
 import pymysql
+import threading
 
 app = Flask(__name__)
 CORS(app)
@@ -64,4 +66,6 @@ app.register_blueprint(api_blueprint, url_prefix='/api')
 
 if __name__ == '__main__':  
     port = int(os.getenv('PORT', 3000))
+    # detection_thread = threading.Thread(target=Detection.run_detection)
+    # detection_thread.start()
     app.run(host='0.0.0.0', port=port, debug=True)
