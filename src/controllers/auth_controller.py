@@ -53,7 +53,7 @@ class AuthController:
             password = request.form.get('password')
 
         if not username or not email or not notelp or not password:
-            return jsonify({'msg': 'All fields are required', 'status': 400}), 400
+            return jsonify({'message': 'All fields are required', 'code': 400}), 400
         
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         otp = send_verification_email(email, username)
@@ -65,7 +65,7 @@ class AuthController:
             return {'message': 'User registered successfully', "code": 200, 'data': user.email}
         except IntegrityError:
             db.session.rollback()
-            return jsonify({'message': 'Email already exists', "code": 400})
+            return jsonify({'message': 'Email already exists', "code": 401}), 401
         except Exception as e:
             return jsonify({'message': 'Internal server error', "code": 500, 'error': str(e)})
 
