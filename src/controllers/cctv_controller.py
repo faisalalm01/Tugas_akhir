@@ -19,6 +19,7 @@ class CctvController:
             passwordUser = request.form.get('passwordUser')
             path = request.form.get('path')
             port = request.form.get('port')
+            protocol = request.form.get('protocol')
             image = request.image_url if request.image_url else None
             # image = request.form.get('Image').get('url')
             # image = request.form.get('image_url') if request.form.get('image_url') else None
@@ -26,6 +27,7 @@ class CctvController:
             post_camera = Cctv(
                 id=id, 
                 idUser=idUser, 
+                protocol=protocol,
                 ip=ip, 
                 lokasiCamera=lokasiCamera,
                 userIp=userIp, 
@@ -69,6 +71,7 @@ class CctvController:
             item = Cctv.query.filter_by(id=id).first()
             cctvData = {
                 "id": item.id,
+                "protocol": item.protocol,
                 "image": item.image,
                 "usercctv": item.userIp,
                 "passcctv": item.passwordUser,

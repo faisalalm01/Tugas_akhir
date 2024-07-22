@@ -20,11 +20,12 @@ from . import db
 
 class Cctv(db.Model):
     id = db.Column(db.String, primary_key=True, unique=True)
+    protocol = db.Column(db.String)
     idUser = db.Column(db.String, db.ForeignKey('user.id'))
     image = db.Column(db.String)
     passwordUser = db.Column(db.String)
     userIp = db.Column(db.String)
-    ip = db.Column(db.String, unique=True, nullable=False)
+    ip = db.Column(db.String, nullable=False)
     port = db.Column(db.String)
     path = db.Column(db.String)
     lokasiCamera = db.Column(db.String, db.ForeignKey('lokasi.namaLokasi'))
@@ -37,6 +38,7 @@ class Cctv(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            'protocol': self.protocol,
             'userIp': self.userIp,
             'passwordUser': self.passwordUser,
             'ip': self.ip,

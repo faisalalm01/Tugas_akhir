@@ -19,7 +19,12 @@ class XampleController:
     def video_feed(id):
         cctv = Cctv.query.get(id)
         if cctv:
-            rtsp_url = f"rtsp://{cctv.userIp}:{cctv.passwordUser}@{cctv.ip}:{cctv.port}/{cctv.path}"
+            username = cctv.userIp
+            password = cctv.passwordUser
+            if username and password:
+                rtsp_url = f"{cctv.protocol}{username}:{password}@{cctv.ip}/{cctv.path}"
+            else:
+                rtsp_url = f"{cctv.protocol}{cctv.ip}/{cctv.path}"
             return Response(gen_frames(rtsp_url), mimetype='multipart/x-mixed-replace; boundary=frame')
         else:
             return "CCTV not found", 404

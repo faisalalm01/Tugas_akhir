@@ -43,6 +43,6 @@ app.register_blueprint(api_blueprint, url_prefix='/api')
 
 if __name__ == '__main__':  
     port = int(os.getenv('PORT', 3000))
-    detection_thread = threading.Thread(target=Detection.run_detection)
-    detection_thread.start()
+    # detection_thread = threading.Thread(target=Detection.run_detection)
+    # detection_thread.start()
     app.run(host='0.0.0.0', port=port, debug=True)
