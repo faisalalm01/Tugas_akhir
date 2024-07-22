@@ -27,7 +27,6 @@ class HistoryController:
                 image=image,
                 ip=ip,
                 nama=nama,
-                lokasiRumah=lokasiRumah,
                 lokasi=lokasi,
                 userId=userId
             )
@@ -40,7 +39,6 @@ class HistoryController:
                 'ip': post_history.ip,
                 'lokasi': post_history.lokasi,
                 'nama': post_history.nama,
-                'lokasiRumah': post_history.lokasiRumah,
                 'userId': post_history.userId,
                 }
             return {'message': 'success', 'code': 200, 'data': response_data}
@@ -68,7 +66,6 @@ class HistoryController:
                 "ip": item.cctv.ip,
                 "nama": item.nama,
                 "lokasi": item.lokasi,
-                "lokasiRumah": item.lokasiRumah,
                 "user": item.user.username,
                 "createdAt": item.createdAt
             }

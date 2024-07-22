@@ -20,7 +20,6 @@ class Report(db.Model):
     ip = db.Column(db.String, db.ForeignKey('cctv.id'))
     nama = db.Column(db.String)
     lokasi = db.Column(db.String)
-    lokasiRumah = db.Column(db.String)
     userId = db.Column(db.String, db.ForeignKey('user.id'))
     isDelete = db.Column(db.Boolean, default=False)
     createdAt = db.Column(db.DateTime, default=db.func.now())
@@ -36,7 +35,6 @@ class Report(db.Model):
                 'ip': self.cctv.ip if self.cctv else None,
                 'nama': self.nama,
                 'lokasi': self.lokasi,
-                'lokasiRumah': self.lokasiRumah,
                 'userId': self.userId,
                 'createdAt': self.createdAt,
                 'updatedAt': self.updatedAt
