@@ -74,7 +74,8 @@ class CctvController:
                 "passcctv": item.passwordUser,
                 "ip": item.ip,
                 "port": item.port,
-                "path": item.path
+                "path": item.path,
+                "lokasi": item.lokasiCamera
             }
             return {'message': 'success', 'code': 200, 'data': cctvData}
         except Exception as e:
