@@ -39,33 +39,8 @@ def home():
 from src.routes.api_routes import api_blueprint
 app.register_blueprint(api_blueprint, url_prefix='/api')
 
-# Error handling for 404 errors
-# @app.errorhandler(Exception)
-# def handle_exception(e):
-#     if isinstance(e, HTTPException):  # type: ignore
-#         response = e.get_response()
-#         response.data = jsonify({
-#             "status_code": STATUS_CODE['INTERNAL_SERVER_ERROR'],  # Sesuaikan dengan kunci yang benar
-#             "message": e.description,
-#         }).data
-#         response.content_type = "application/json"
-#         return response
-#     else:
-#         return jsonify({
-#             "status_code": STATUS_CODE['INTERNAL_SERVER_ERROR'],  # Sesuaikan dengan kunci yang benar
-#             "message": str(e)
-#         }), STATUS_CODE['INTERNAL_SERVER_ERROR']
-
-
-# @app.errorhandler(NotFound)
-# def handle_404(e):
-#     return jsonify({
-#         "status_code": STATUS_CODE['STATUS_NOT_FOUND'],
-#         "message": "Resource not found"
-#     }), STATUS_CODE['STATUS_NOT_FOUND']
-
 if __name__ == '__main__':  
     port = int(os.getenv('PORT', 3000))
-    # detection_thread = threading.Thread(target=Detection.run_detection)
-    # detection_thread.start()
+    detection_thread = threading.Thread(target=Detection.openCamera)
+    detection_thread.start()
     app.run(host='0.0.0.0', port=port, debug=True)
