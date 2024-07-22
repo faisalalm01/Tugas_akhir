@@ -54,7 +54,7 @@ export default StyleSheet.create({
     color: 'black',
     // borderWidth: 2,
     textAlign: 'center',
-    marginVertical: 5,
+    marginVertical: 8,
   },
   FormContainer: {
     // borderColor: 'blue',

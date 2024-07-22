@@ -110,7 +110,7 @@ const CameraView: React.FC<Props> = ({navigation, route}) => {
             <Text> {data?.path}</Text>
           </Text>
           <Text style={{color: 'black', fontSize: 20}}>
-            <Text style={{fontWeight: 'bold'}}>Path :</Text>
+            <Text style={{fontWeight: 'bold'}}>Location :</Text>
             <Text> {data?.lokasi}</Text>
           </Text>
         </View>

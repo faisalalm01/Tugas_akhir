@@ -10,7 +10,6 @@ import DetailHistory from '../pages/DetailHistory/DetailHistory.view';
 import Otp from '../pages/Otp/Otp.view';
 import userDetail from '../pages/userDetail/userDetail.view';
 import AddCctv from '../pages/AddCctvIp/addCctv.view';
-import CctvDetail from '../pages/CctvDetail/cctvDetail.view';
 import Notif from '../pages/Notification/Notif.view';
 import CameraView from '../pages/CameraApp/Camera.view';
 import {NavigationProps} from '../utils/Navigator';
@@ -86,7 +85,6 @@ const RootNavigator = () => {
         <Stack.Screen name="OtpVerif" component={Otp} />
         <Stack.Screen name="DetailUser" component={userDetail} />
         <Stack.Screen name="AddCctvIp" component={AddCctv} />
-        <Stack.Screen name="DetailCctv" component={CctvDetail} />
         <Stack.Screen name="Notification" component={Notif} />
         <Stack.Screen name="CameraView" component={CameraView} />
         <Stack.Screen name="Login" component={Login} />
@@ -94,7 +92,6 @@ const RootNavigator = () => {
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="Support" component={Support} />
-        {/* {isLoggedIn ? <></> : <></>} */}
       </Stack.Navigator>
     </>
   );

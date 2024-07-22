@@ -81,9 +81,10 @@ const History: React.FC<Props> = ({navigation}) => {
                 />
               ))}
             </ScrollView>
-            <ScrollView style={{marginBottom: 45}}>
+            <ScrollView style={{marginBottom: 100}}>
               {filteredData.map(item => (
                 <TouchableOpacity
+                  // style={{marginBottom: 20}}
                   key={item.id}
                   onPress={() =>
                     navigation.navigate('DetailHistory', {id: item.id})

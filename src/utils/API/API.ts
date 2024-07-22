@@ -177,6 +177,7 @@ export const getDataCctv = async (): Promise<DataResponse> => {
 };
 
 export const inputCctv = async (
+  protocols: string,
   ip: string,
   lokasiCamera: string,
   userIp: string,
@@ -191,6 +192,7 @@ export const inputCctv = async (
       throw new Error('No token found');
     }
     const formData = new FormData();
+    formData.append('protocol', protocols);
     formData.append('ip', ip);
     formData.append('lokasiCamera', lokasiCamera);
     formData.append('userIp', userIp);
@@ -242,7 +244,7 @@ export const getDetailCctv = async (id: string) => {
   }
 };
 
-export const getDataHistory = async (page = 1, limit = 7, lokasi?: string) => {
+export const getDataHistory = async (lokasi?: string) => {
   try {
     const token = await AsyncStorage.getItem('token');
     if (!token) {
@@ -254,8 +256,8 @@ export const getDataHistory = async (page = 1, limit = 7, lokasi?: string) => {
         'Content-Type': 'application/json',
       },
       params: {
-        page,
-        limit,
+        // page,
+        // limit,
         lokasi,
       },
     });

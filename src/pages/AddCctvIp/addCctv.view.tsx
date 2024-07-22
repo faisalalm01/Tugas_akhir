@@ -40,6 +40,7 @@ const AddCctv: React.FC<Props> = ({navigation}) => {
   const [passwordUser, setPasswordUser] = useState<string>('');
   const [path, setPath] = useState<string>('');
   const [port, setPort] = useState<string>('');
+  const [protocol, setProtocol] = useState<string>('');
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -89,6 +90,7 @@ const AddCctv: React.FC<Props> = ({navigation}) => {
   const handleSubmit = async () => {
     try {
       const response = await inputCctv(
+        protocol,
         ip,
         selectedLocation,
         userIp,
@@ -129,18 +131,19 @@ const AddCctv: React.FC<Props> = ({navigation}) => {
         <Text style={addCctvIpStyle.HeaderText}>Input CCTV</Text>
         <View
           style={{
-            paddingHorizontal: 15,
+            paddingHorizontal: 50,
             marginTop: 20,
             opacity: 20,
             flexDirection: 'row',
             gap: 5,
+            // borderWidth: 2,
           }}>
           <View>
             <Icon name={'warning'} color="red" size={25} />
           </View>
           <View>
             <Text style={addCctvIpStyle.DescText}>
-              Gunakkan Ip CCTV dengan Protocol rtsp://
+              Use Ip CCTV with Protocol (rtsp://, http://, https://)
             </Text>
           </View>
         </View>
@@ -165,6 +168,13 @@ const AddCctv: React.FC<Props> = ({navigation}) => {
             </TouchableOpacity>
           </View>
 
+          <TextInput
+            placeholderTextColor={'#BFBFBF'}
+            placeholder="rtsp:// or http:// or https://"
+            style={addCctvIpStyle.FormInput}
+            value={protocol}
+            onChangeText={setProtocol}
+          />
           <TextInput
             placeholderTextColor={'#BFBFBF'}
             placeholder="192.168.xx.xx"
