@@ -102,8 +102,17 @@ const Profile: React.FC<Props> = ({navigation}) => {
         <CardComponent
           icon={IconName.MaterialIcons.Question}
           text={'Support'}
+          onPress={() => {
+            navigation.navigate('Support');
+          }}
         />
-        <CardComponent icon={IconName.MaterialIcons.Info} text={'About us'} />
+        <CardComponent
+          icon={IconName.MaterialIcons.Info}
+          text={'About us'}
+          onPress={() => {
+            navigation.navigate('About');
+          }}
+        />
         <CardComponent
           icon={IconName.MaterialIcons.Logout}
           text={'Logout'}

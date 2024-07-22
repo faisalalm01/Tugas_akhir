@@ -41,7 +41,7 @@ const CameraView: React.FC<Props> = ({navigation, route}) => {
   const [data, setData] = useState<any>();
   const [error, setError] = useState<string | null>(null);
   const {id} = route.params as {id: string};
-  const cctvUrl = `http://192.168.169.11:3000/api/video_feed/${id}`;
+  const cctvUrl = `http://192.168.119.11:3000/api/video_feed/${id}`;
 
   console.log(id);
   useEffect(() => {
@@ -92,10 +92,28 @@ const CameraView: React.FC<Props> = ({navigation, route}) => {
           width: '100%',
           height: '30%',
         }}>
-        <Text style={{color: 'black'}}>
-          <Text>{data?.ip}</Text>
-          <Text>{data?.path}</Text>
-        </Text>
+        <View style={{width: '100%'}}>
+          <Text style={{color: 'black', fontSize: 20}}>
+            <Text style={{fontWeight: 'bold'}}>IP :</Text>
+            <Text> {data?.ip}</Text>
+          </Text>
+          <Text style={{color: 'black', fontSize: 20}}>
+            <Text style={{fontWeight: 'bold'}}>User :</Text>
+            <Text> {data?.usercctv}</Text>
+          </Text>
+          <Text style={{color: 'black', fontSize: 20}}>
+            <Text style={{fontWeight: 'bold'}}>Password :</Text>
+            <Text> {data?.passcctv}</Text>
+          </Text>
+          <Text style={{color: 'black', fontSize: 20}}>
+            <Text style={{fontWeight: 'bold'}}>Path :</Text>
+            <Text> {data?.path}</Text>
+          </Text>
+          <Text style={{color: 'black', fontSize: 20}}>
+            <Text style={{fontWeight: 'bold'}}>Path :</Text>
+            <Text> {data?.lokasi}</Text>
+          </Text>
+        </View>
         <TouchableOpacity
           style={CameraStyle.buttonStyle}
           onPress={() => navigation.navigate('Main')}>

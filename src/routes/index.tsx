@@ -16,6 +16,8 @@ import CameraView from '../pages/CameraApp/Camera.view';
 import {NavigationProps} from '../utils/Navigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
+import About from '../pages/AboutMe/About.view';
+import Support from '../pages/Support/Support.view';
 // import {checkTokens} from '../utils/checkToken';
 
 const Stack = createNativeStackNavigator();
@@ -90,6 +92,8 @@ const RootNavigator = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
+        <Stack.Screen name="About" component={About} />
+        <Stack.Screen name="Support" component={Support} />
         {/* {isLoggedIn ? <></> : <></>} */}
       </Stack.Navigator>
     </>

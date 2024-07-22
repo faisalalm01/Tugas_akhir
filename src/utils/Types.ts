@@ -16,6 +16,8 @@ type RootStackParamList = {
   DetailCctv: {id: string};
   CameraView: {id: string};
   Notification: undefined;
+  About: undefined;
+  Support: undefined;
   // tambahkan layar lain di sini jika diperlukan
 } & ParamListBase;
 

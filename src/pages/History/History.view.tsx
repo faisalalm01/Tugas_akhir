@@ -90,7 +90,7 @@ const History: React.FC<Props> = ({navigation}) => {
                   }>
                   <CardList
                     title={item.nama}
-                    date={item.createdAt.slice(0, 10)}
+                    date={item.createdAt.slice(0, 16)}
                     tagline={item.lokasi}
                   />
                 </TouchableOpacity>
