@@ -24,6 +24,7 @@ const Otp: React.FC<Props> = ({navigation}) => {
       console.log(email, otp);
       if (response.code === 200) {
         console.log('Verify success');
+        Alert.alert('Your Account is Verified');
         navigation.navigate('Login');
       } else {
         Alert.alert('Verify failed', response.message || 'Unknown error');

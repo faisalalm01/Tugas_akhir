@@ -104,7 +104,7 @@ const DetailHistory: React.FC<Props> = ({navigation}) => {
                   }}>
                   <Text style={DetaHistoryStyle.textLabel}>Date : </Text>
                   <Text style={DetaHistoryStyle.textColor}>
-                    {history.createdAt.slice(0, 10)}
+                    {history.createdAt.slice(5, 17)}
                   </Text>
                 </View>
               </View>
@@ -131,7 +131,7 @@ const DetailHistory: React.FC<Props> = ({navigation}) => {
                   }}>
                   <Text style={DetaHistoryStyle.textLabel}>Time : </Text>
                   <Text style={DetaHistoryStyle.textColor}>
-                    {history.createdAt.slice(11, 16)}
+                    {history.createdAt.slice(17, 22)}
                   </Text>
                 </View>
               </View>

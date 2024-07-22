@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Alert, Image, ScrollView, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ProfileStyle from './Profile.style';
 import CardComponent from '../../components/CardComponent';
@@ -21,7 +21,7 @@ const Profile: React.FC<Props> = ({navigation}) => {
       const responseData = await userDetail();
       setData(responseData.data);
     } catch (error) {
-      console.error('Fetch data error:', error);
+      // console.error('Fetch data error:', error);
     }
   };
 
@@ -39,11 +39,13 @@ const Profile: React.FC<Props> = ({navigation}) => {
     try {
       // Menghapus token dari AsyncStorage
       await AsyncStorage.removeItem('token');
+      Alert.alert('Your Account is Logout');
       // Mengarahkan pengguna ke halaman Login
       navigation.reset({
         index: 0,
         routes: [{name: 'Login'}],
       });
+      // navigation.replace('Login');
     } catch (error) {
       console.error('Error logging out:', error);
     }

@@ -6,7 +6,6 @@ import RegisterStyle from './Register.style';
 import {NavigationProps} from '../../utils/Navigator';
 import {RegisterResponse} from '../../utils/API/types';
 import {registerUser} from '../../utils/API/API';
-// import {Checkbox} from 'react-native-paper';
 
 type Props = {
   navigation: NavigationProps;
@@ -19,6 +18,10 @@ const Register: React.FC<Props> = ({navigation}) => {
   const [notelp, setNotelp] = useState<string>('+62');
 
   const handleRegister = async () => {
+    if (!username && !email && !password && !notelp) {
+      Alert.alert('All fields are required');
+      return;
+    }
     try {
       const response: RegisterResponse = await registerUser(
         username,
@@ -27,11 +30,13 @@ const Register: React.FC<Props> = ({navigation}) => {
         notelp,
       );
 
+      if (response.code === 400) {
+        Alert.alert('Registration failed');
+      }
+
       if (response.code === 200) {
         Alert.alert('Registration success');
         navigation.navigate('OtpVerif', {email: email});
-      } else {
-        Alert.alert('Registration failed', response.message || 'Unknown error');
       }
     } catch (error) {
       console.log('API error:', error);
@@ -78,17 +83,12 @@ const Register: React.FC<Props> = ({navigation}) => {
             style={RegisterStyle.FormInput}
             value={notelp}
             onChangeText={setNotelp}
-            keyboardType="name-phone-pad"
+            keyboardType="number-pad"
+            textContentType="telephoneNumber"
             maxLength={13}
           />
         </View>
         <View style={{flexDirection: 'row'}}>
-          {/* <Checkbox.Android
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setChecked(!checked);
-            }}
-          /> */}
           <Text
             style={{
               fontWeight: '500',

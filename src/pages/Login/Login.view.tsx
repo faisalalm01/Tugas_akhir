@@ -22,8 +22,10 @@ const Login: React.FC<PropsHome> = ({navigation}) => {
     try {
       const response: LoginResponse = await loginUser(email, password);
 
-      console.log(response.code === 200);
-      if (response.code === 200) {
+      console.log(response.code);
+      if (response.code === 401) {
+        console.log(response.code);
+      } else if (response.code === 200) {
         navigation.navigate('Main');
         console.log(response);
         Alert.alert('Login Success');

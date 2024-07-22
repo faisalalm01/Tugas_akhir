@@ -4,16 +4,31 @@ import {Image, Text, View} from 'react-native';
 import SplashStyle from './Splash.style';
 import {StackActions} from '@react-navigation/native';
 import {NavigationProps} from '../../utils/Navigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Props = {
   navigation: NavigationProps;
 };
 
 const Splash: React.FC<Props> = ({navigation}) => {
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     navigation.dispatch(StackActions.replace('OnBoarding'));
+  //   }, 3000);
+
+  //   return () => clearTimeout(timer);
+  // }, [navigation]);
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.dispatch(StackActions.replace('OnBoarding'));
-    }, 3000);
+    const checkLoginStatus = async () => {
+      const userToken = await getUserToken();
+      if (userToken) {
+        navigation.dispatch(StackActions.replace('Main'));
+      } else {
+        navigation.dispatch(StackActions.replace('OnBoarding'));
+      }
+    };
+
+    const timer = setTimeout(checkLoginStatus, 3000);
 
     return () => clearTimeout(timer);
   }, [navigation]);
@@ -30,6 +45,16 @@ const Splash: React.FC<Props> = ({navigation}) => {
       </View>
     </>
   );
+};
+
+const getUserToken = async (): Promise<string | null> => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    return token;
+  } catch (error) {
+    console.error('Failed to fetch the token from storage', error);
+    return null;
+  }
 };
 
 export default Splash;

@@ -1,3 +1,21 @@
 {
+  // "compilerOptions": {
+  //   "target": "es5",
+  //   "lib": ["dom", "dom.iterable", "esnext"],
+  //   "allowJs": true,
+  //   "skipLibCheck": true,
+  //   "esModuleInterop": true,
+  //   "allowSyntheticDefaultImports": true,
+  //   "strict": true,
+  //   "forceConsistentCasingInFileNames": true,
+  //   "noFallthroughCasesInSwitch": true,
+  //   "module": "Node16",
+  //   "moduleResolution": "node16",  // Atur moduleResolution ke node16, nodenext, atau bundler
+  //   "resolveJsonModule": true,
+  //   "isolatedModules": true,
+  //   "jsx": "react-jsx",
+  //   "customConditions": ["condition"]  // Pastikan ini digunakan dengan moduleResolution yang tepat
+  // },
+  // "include": ["src"],
   "extends": "@react-native/typescript-config/tsconfig.json",
 }

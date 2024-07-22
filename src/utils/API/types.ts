@@ -2,7 +2,7 @@ export interface LoginResponse {
   success: boolean;
   code?: number;
   message?: string;
-  token?: string;
+  token: string;
   user?: UserData;
   // data?: [];
 }
@@ -11,6 +11,7 @@ export interface RegisterResponse {
   success: boolean;
   code?: number;
   message?: string;
+  data?: string;
 }
 
 export interface OtpVerif {

@@ -97,11 +97,17 @@ const AddCctv: React.FC<Props> = ({navigation}) => {
         port,
         image,
       );
+      if (ip === '' || selectedLocation === '') {
+        Alert.alert('Success', 'CCTV data submitted successfully');
+      }
       Alert.alert('Success', 'CCTV data submitted successfully');
       navigation.navigate('Main');
     } catch (error) {
-      console.error('Error submitting CCTV data', error);
-      Alert.alert('Error', 'An error occurred while submitting data');
+      // console.error('Error submitting CCTV data', error);
+      Alert.alert(
+        'Error Add CCTV',
+        'ip, location and path are required, please input correctly',
+      );
     }
   };
 

@@ -9,6 +9,7 @@ import {
   UserUpdateResponse,
 } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert} from 'react-native';
 
 export const BaseUrl = 'https://jxsb6npw-3000.asse.devtunnels.ms/api';
 
@@ -26,10 +27,17 @@ export const registerUser = async (
       notelp,
     });
 
+    console.log(response.data.data);
+    if (response.data.data === undefined) {
+      Alert.alert('email sudah terpakai');
+    } else {
+      return response.data;
+    }
     return response.data;
   } catch (error) {
-    console.error('Registration error:', error);
-    return {success: false, message: 'Registration failed', code: 500};
+    // console.error('Registration error:', error);
+    // return {message: 'Registration failed', code: 500};
+    throw error;
   }
 };
 
@@ -43,11 +51,11 @@ export const VerifyOtp = async (email: string, otp: string) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    if (axios.isAxiosError(error) && error.response) {
-      console.error('API error:', error.response.data);
-    } else {
-      console.error('Fetch data error:', error);
-    }
+    // if (axios.isAxiosError(error) && error.response) {
+    //   console.error('API error:', error.response.data);
+    // } else {
+    //   console.error('Fetch data error:', error);
+    // }
     throw error;
   }
 };
@@ -82,9 +90,9 @@ export const loginUser = async (
 export const userDetail = async () => {
   try {
     const token = await AsyncStorage.getItem('token');
-    if (!token) {
-      throw new Error('No token found');
-    }
+    // if (!token) {
+    //   throw new Error('No token found');
+    // }
     const response = await axios.get(`${BaseUrl}/user/detail`, {
       headers: {
         Authorization: `bearer ${token}`,
@@ -204,8 +212,8 @@ export const inputCctv = async (
     });
     return response.data;
   } catch (error) {
-    console.log(error);
-    console.error('Error inputting CCTV camera data', error);
+    // console.log(error);
+    // console.error('Error inputting CCTV camera data', error);
     throw error;
   }
 };

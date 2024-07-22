@@ -27,11 +27,6 @@ const MainNavigator: React.FC<Props> = ({navigation}) => {
         }}
       />
       <Tab.Navigator
-        // screenOptions={{
-        //   headerShown: false,
-        //   tabBarInactiveBackgroundColor: '#F6F6F6',
-        //   tabBarActiveBackgroundColor: '#F6F6F6',
-        // }}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName: string | any;
