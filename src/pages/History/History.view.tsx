@@ -93,6 +93,7 @@ const History: React.FC<Props> = ({navigation}) => {
                     title={item.nama}
                     date={item.createdAt.slice(0, 16)}
                     tagline={item.lokasi}
+                    time={item.createdAt.slice(17, 22)}
                   />
                 </TouchableOpacity>
               ))}

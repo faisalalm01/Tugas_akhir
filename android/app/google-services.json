@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "711286372800",
+    "project_id": "fir-pushnotification-8147c",
+    "storage_bucket": "fir-pushnotification-8147c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711286372800:android:d5941c2660ea2e188b3025",
+        "android_client_info": {
+          "package_name": "com.crimedetection.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu4OPMIII5qBi_kXb-jg9uQ_IMkFVzabw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

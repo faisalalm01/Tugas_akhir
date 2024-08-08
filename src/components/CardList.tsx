@@ -5,8 +5,9 @@ interface CardListProps extends TouchableOpacityProps {
   title: string;
   date: string;
   tagline: string;
+  time: string;
 }
-const CardList: React.FC<CardListProps> = ({title, date, tagline}) => {
+const CardList: React.FC<CardListProps> = ({title, date, tagline, time}) => {
   return (
     <View style={styles.card}>
       <View>
@@ -15,6 +16,7 @@ const CardList: React.FC<CardListProps> = ({title, date, tagline}) => {
       </View>
       <View>
         <Text style={styles.tagline}>{tagline}</Text>
+        <Text style={styles.tagline}>{time}</Text>
       </View>
     </View>
   );

@@ -41,7 +41,7 @@ const CameraView: React.FC<Props> = ({navigation, route}) => {
   const [data, setData] = useState<any>();
   const [error, setError] = useState<string | null>(null);
   const {id} = route.params as {id: string};
-  const cctvUrl = `http://192.168.119.11:3000/api/video_feed/${id}`;
+  const cctvUrl = `http://192.168.95.11:3000/api/video_feed/${id}`;
 
   console.log(id);
   useEffect(() => {
