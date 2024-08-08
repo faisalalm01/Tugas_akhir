@@ -51,6 +51,7 @@ class AuthController:
             email = request.form.get('email')
             notelp = request.form.get('notelp')
             password = request.form.get('password')
+        id = str(uuid4())
 
         if not username or not email or not notelp or not password:
             return jsonify({'message': 'All fields are required', 'code': 400}), 400
@@ -63,9 +64,9 @@ class AuthController:
             db.session.add(user)
             db.session.commit()
             return {'message': 'User registered successfully', "code": 200, 'data': user.email}
-        except IntegrityError:
+        except IntegrityError as u:
             db.session.rollback()
-            return jsonify({'message': 'Email already exists', "code": 401}), 401
+            return jsonify({'message': 'Email already exists', "code": 401, 'error': u}), 401
         except Exception as e:
             return jsonify({'message': 'Internal server error', "code": 500, 'error': str(e)})
 

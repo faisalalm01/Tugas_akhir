@@ -11,7 +11,7 @@ class HistoryController:
             id = str(uuid4())
             ip = request.form.get('ip')
             nama = request.form.get('nama')
-            lokasiRumah = request.form.get('lokasiRumah')
+            # lokasiRumah = request.form.get('lokasiRumah')
             # userId = request.token
             image = request.image_url
 
