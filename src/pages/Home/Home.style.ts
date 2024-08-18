@@ -19,4 +19,18 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 15,
     opacity: 1,
   },
+  action: {
+    color: 'white',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    fontSize: 18,
+    fontWeight: '500',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 10,
+    opacity: 1,
+  }
 });

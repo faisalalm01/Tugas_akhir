@@ -11,7 +11,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 
-export const BaseUrl = 'https://jxsb6npw-3000.asse.devtunnels.ms/api';
+export const BaseUrl = 'https://hr9rk4nd-3000.asse.devtunnels.ms/api';
 
 export const registerUser = async (
   username: string,
@@ -228,7 +228,7 @@ export const getDetailCctv = async (id: string) => {
     }
     const response = await axios.get(`${BaseUrl}/cctv/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`, // Ganti dengan token Anda jika diperlukan
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     });
@@ -281,7 +281,7 @@ export const getDetailHistory = async (id: string) => {
     }
     const response = await axios.get(`${BaseUrl}/history/detail/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`, // Ganti dengan token Anda jika diperlukan
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     });
@@ -328,6 +328,26 @@ export const inputLokasi = async (
         },
       },
     );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('API error:', error.response.data);
+    } else {
+      console.error('Fetch data error:', error);
+    }
+    throw error;
+  }
+};
+
+export const deleteCctv = async (id: string): Promise<void> => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const response = await axios.delete(`${BaseUrl}/cctv/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
