@@ -1,6 +1,0 @@
-Flask
-Flask-SQLAlchemy
-bcrypt
-pyjwt
-Flask-Mail
-Jinja2

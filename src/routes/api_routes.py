@@ -6,6 +6,7 @@ from src.controllers.history_controller import HistoryController
 from src.controllers.user_controller import UserController
 from src.controllers.lokasi_contreoller import LokasiController
 from src.controllers.xample_controller import XampleController
+from src.controllers.notification_controller import NotificationController
 from src.helpers.middleware.auth_middleware import check_token
 # from src.helpers.middleware.multer_middleware import upload_middleware
 from src.helpers.middleware.upload_cloudinary import upload_cloudinary
@@ -31,7 +32,9 @@ api_blueprint.add_url_rule('/user/update', 'update_user', check_token(upload_clo
 api_blueprint.route('/cctv', methods=['GET'])(check_token(CctvController.get_ip_cctv_camera))
 api_blueprint.add_url_rule('/cctv', 'post_cctv', check_token(upload_cloudinary(CctvController.input_ip_cctv_camera)), methods=['POST'])
 api_blueprint.route('/cctv/<string:id>', methods=['GET'])(check_token(CctvController.get_ip_cctv_camera_by_id))
-api_blueprint.route('/cctv/<string:id>', methods=['DELETE'])(check_token(CctvController.delete_ip_cctv_camera))
+# api_blueprint.route('/cctv/<string:id>', methods=['DELETE'])(check_token(CctvController.delete_ip_cctv_camera))
+api_blueprint.add_url_rule('/cctv/<string:id>', 'delete_cctv', check_token(CctvController.delete_ip_cctv_camera_id), methods=['DELETE'])
+api_blueprint.add_url_rule('/cctv/<string:id>', 'update_cctv', check_token(upload_cloudinary(CctvController.update_data_cctv)), methods=['PUT'])
 
 api_blueprint.route('/history', methods=['GET'])(check_token(HistoryController.get_historyReport))
 api_blueprint.route('/history/detail/<string:id>', methods=['GET'])(check_token(HistoryController.get_histry_report_detail))
@@ -49,3 +52,7 @@ api_blueprint.add_url_rule('/cctv_all', 'get_cctv', XampleController.get_all_cct
 api_blueprint.add_url_rule('/video_feed/<id>', 'video_feed', XampleController.video_feed, methods=['GET'])
 api_blueprint.add_url_rule('/register-device', 'register-device', XampleController.register_device, methods=['GET'])
 api_blueprint.add_url_rule('/get_user', 'get_user', XampleController.get_all_users, methods=['GET'])
+
+# notification
+api_blueprint.add_url_rule('/send-notification', 'send-notif', NotificationController.send_notification ,methods=['POST'])
+api_blueprint.add_url_rule('/register-token', 'regis_token', NotificationController.register_token, methods=['POST'])

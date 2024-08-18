@@ -14,7 +14,6 @@ from flask_jwt_extended import JWTManager
 from src.helpers.middleware.load_model_middleware import Detection
 import pymysql
 import threading
-from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 # socketio = SocketIO(app, cors_allowed_origins="*")

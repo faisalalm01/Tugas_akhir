@@ -85,6 +85,23 @@ class CctvController:
             print(e)
             return {'message': 'failed', 'code': 400, 'error': e}
 
+    def update_data_cctv(id):
+        try:
+            item = Cctv.query.filter_by(id=id, isDelete=False).first()
+            if not item:
+                return {'message': 'CCTV record not found', 'code': 404}
+
+            image = request.form.get('image_url')
+            if image:
+                item.image = image
+                db.session.commit()
+                return {'message': 'CCTV image updated successfully', 'code': 200}
+            else:
+                return {'message': 'No image provided', 'code': 400}
+        except Exception as e:
+            print(e)
+            return {'message': 'failed', 'code': 500, 'error': str(e)}
+        
     def delete_ip_cctv_camera(id):
         try:
             item = Cctv.query.filter_by(id=id, isDelete=False).first()
@@ -94,3 +111,16 @@ class CctvController:
         except Exception as e:
             print(e)
             return {'message': 'failed', 'code': 400, 'error': e}
+
+    def delete_ip_cctv_camera_id(id):
+        try:
+            item = Cctv.query.filter_by(id=id).first()
+            if not item:
+                return {'message': 'CCTV record not found', 'code': 404}
+
+            db.session.delete(item)
+            db.session.commit()
+            return {'message': 'CCTV record deleted successfully', 'code': 200}
+        except Exception as e:
+            print(e)
+            return {'message': 'failed', 'code': 500, 'error': str(e)}

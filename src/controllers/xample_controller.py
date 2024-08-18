@@ -23,10 +23,15 @@ class XampleController:
         if cctv:
             username = cctv.userIp
             password = cctv.passwordUser
+            port = cctv.port
             if username and password:
                 rtsp_url = f"{cctv.protocol}{username}:{password}@{cctv.ip}/{cctv.path}"
+            if port:
+                rtsp_url = f"{cctv.protocol}{cctv.ip}:{port}/{cctv.path}"
             else:
                 rtsp_url = f"{cctv.protocol}{cctv.ip}/{cctv.path}"
+
+            print(rtsp_url)
             return Response(gen_frames(rtsp_url), mimetype='multipart/x-mixed-replace; boundary=frame')
         else:
             return "CCTV not found", 404
