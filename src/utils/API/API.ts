@@ -358,3 +358,42 @@ export const deleteCctv = async (id: string): Promise<void> => {
     throw error;
   }
 };
+
+export const updateCctvData = async (
+  id: string,
+  location: string,
+  image: {uri: string; type: string; name: string} | null, // New Image
+): Promise<any> => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+    const formData = new FormData();
+    formData.append('lokasiCamera', location);
+    if (image) {
+      formData.append('image', {
+        uri: image.uri,
+        type: image.type,
+        name: image.name,
+      });
+    }
+    // Sending PUT request to update CCTV data
+    const response = await axios.put(`${BaseUrl}/cctv/update/${id}`, formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('API error:', error.response.data);
+    } else {
+      console.error('Fetch data error:', error);
+    }
+    throw error;
+  }
+};

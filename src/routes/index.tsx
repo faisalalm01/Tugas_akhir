@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
 import About from '../pages/AboutMe/About.view';
 import Support from '../pages/Support/Support.view';
+import UpdateCCTV from '../pages/UpdateCctv/updateCctv.style';
 // import {checkTokens} from '../utils/checkToken';
 
 const Stack = createNativeStackNavigator();
@@ -92,6 +93,7 @@ const RootNavigator = () => {
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="Support" component={Support} />
+        <Stack.Screen name="UpdateCctv" component={UpdateCCTV} />
       </Stack.Navigator>
     </>
   );

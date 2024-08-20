@@ -18,6 +18,7 @@ type RootStackParamList = {
   Notification: undefined;
   About: undefined;
   Support: undefined;
+  UpdateCctv: {id: string}
   // tambahkan layar lain di sini jika diperlukan
 } & ParamListBase;
 

@@ -98,6 +98,11 @@ const Home: React.FC<Props> = ({ navigation, route }) => {
           ) : (
             <View style={{ rowGap: 10, marginBottom: 200 }}>
               {data.map(item => (
+                <>
+                  <View style={[HomeStyle.action, { flexDirection: 'row', justifyContent: 'space-between', gap: 10, zIndex: 1}]}>
+                    <Icon name='trash-alt' color={'white'} size={15} onPress={() => handleDelete(item.id)}/>
+                    {/* <Icon name='edit' color={'white'} size={15} onPress={() => navigation.navigate('UpdateCctv', {id: item.id})}/> */}
+                  </View>
                 <View
                   key={item.id}
                   onTouchMove={() =>
@@ -117,14 +122,13 @@ const Home: React.FC<Props> = ({ navigation, route }) => {
                       borderRadius: 15,
                       borderWidth: 0.5,
                       borderColor: 'black',
+                      zIndex: 0
                     }}
-                  />
-                  <View style={[HomeStyle.action, { flexDirection: 'row', justifyContent: 'space-between', gap: 10}]}>
-                    <Icon name='trash-alt' color={'white'} size={15} onPress={() => handleDelete(item.id)}/>
-                    <Icon name='edit' color={'white'} size={15}/>
-                  </View>
+                    />
+                  
                   <Text style={HomeStyle.tag}>{item.lokasiCamera}</Text>
                 </View>
+                    </>
               ))}
             </View>
           )}
