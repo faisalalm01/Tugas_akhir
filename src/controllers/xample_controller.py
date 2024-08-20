@@ -26,7 +26,7 @@ class XampleController:
             port = cctv.port
             if username and password:
                 rtsp_url = f"{cctv.protocol}{username}:{password}@{cctv.ip}/{cctv.path}"
-            if port:
+            elif port:
                 rtsp_url = f"{cctv.protocol}{cctv.ip}:{port}/{cctv.path}"
             else:
                 rtsp_url = f"{cctv.protocol}{cctv.ip}/{cctv.path}"

@@ -8,19 +8,20 @@ from google.auth.transport.requests import Request
 device_tokens = []
 
 # Path ke file service account
-SERVICE_ACCOUNT_FILE = 'fir-pushnotification-8147c-firebase-adminsdk-25qcj-36c994c5d6.json'
+SERVICE_ACCOUNT_FILE = '********.json'
 
 # Scope yang diperlukan
 SCOPES = ['https://www.googleapis.com/auth/firebase.messaging']
 
 # FCM endpoint
-fcm_endpoint = 'https://fcm.googleapis.com/v1/projects/fir-pushnotification-8147c/messages:send'
+fcm_endpoint = 'https://fcm.googleapis.com/v1/projects/id_project/messages:send'
 
 # Inisialisasi credentials dari service account
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
 class NotificationController:
+    @staticmethod
     def send_push_notification(registration_ids, title, body):
         # Refresh token dan mendapatkan akses token
         credentials.refresh(Request())
@@ -42,7 +43,8 @@ class NotificationController:
                 "android": {
                     "priority": "high"
                 },
-                "tokens": registration_ids
+                "token": registration_ids[0]  # Jika hanya mengirim ke satu device
+                # Atau jika ingin mengirim ke beberapa device, gunakan loop atau buat panggilan terpisah
             }
         }
 
@@ -56,6 +58,7 @@ class NotificationController:
             print("Gagal mengirim notifikasi:", response.status_code, response.text)
             return {"error": response.text}, response.status_code
 
+    @staticmethod
     def register_token():
         data = request.get_json()
         token = data.get('token')
@@ -67,6 +70,7 @@ class NotificationController:
         else:
             return jsonify({'message': 'Token already exists or invalid'}), 400
 
+    @staticmethod
     def send_notification():
         detection = request.json.get('detection')
         message_title = "Peringatan Deteksi"

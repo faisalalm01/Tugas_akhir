@@ -32,9 +32,9 @@ api_blueprint.add_url_rule('/user/update', 'update_user', check_token(upload_clo
 api_blueprint.route('/cctv', methods=['GET'])(check_token(CctvController.get_ip_cctv_camera))
 api_blueprint.add_url_rule('/cctv', 'post_cctv', check_token(upload_cloudinary(CctvController.input_ip_cctv_camera)), methods=['POST'])
 api_blueprint.route('/cctv/<string:id>', methods=['GET'])(check_token(CctvController.get_ip_cctv_camera_by_id))
-# api_blueprint.route('/cctv/<string:id>', methods=['DELETE'])(check_token(CctvController.delete_ip_cctv_camera))
-api_blueprint.add_url_rule('/cctv/<string:id>', 'delete_cctv', check_token(CctvController.delete_ip_cctv_camera_id), methods=['DELETE'])
-api_blueprint.add_url_rule('/cctv/<string:id>', 'update_cctv', check_token(upload_cloudinary(CctvController.update_data_cctv)), methods=['PUT'])
+api_blueprint.route('/cctv/<string:id>', methods=['DELETE'])(check_token(CctvController.delete_ip_cctv_camera))
+# api_blueprint.add_url_rule('/cctv/<string:id>', 'delete_cctv', check_token(CctvController.delete_ip_cctv_camera_id), methods=['DELETE'])
+api_blueprint.add_url_rule('/cctv/update/<string:id>', 'update_cctv', check_token(upload_cloudinary(CctvController.update_data_cctv)), methods=['PUT'])
 
 api_blueprint.route('/history', methods=['GET'])(check_token(HistoryController.get_historyReport))
 api_blueprint.route('/history/detail/<string:id>', methods=['GET'])(check_token(HistoryController.get_histry_report_detail))

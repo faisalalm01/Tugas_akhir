@@ -87,17 +87,27 @@ class CctvController:
 
     def update_data_cctv(id):
         try:
+            # Fetch the CCTV record based on the given ID and ensure it's not deleted
             item = Cctv.query.filter_by(id=id, isDelete=False).first()
             if not item:
                 return {'message': 'CCTV record not found', 'code': 404}
 
-            image = request.form.get('image_url')
+            # Get the new image URL and location from the request
+            image = request.image_url if request.image_url else None
+            lokasiCamera = request.form.get('lokasiCamera')
+
+            # Check if either the image or location needs to be updated
             if image:
                 item.image = image
+            if lokasiCamera:
+                item.lokasiCamera = lokasiCamera
+
+            # Commit changes to the database
+            if image or lokasiCamera:
                 db.session.commit()
-                return {'message': 'CCTV image updated successfully', 'code': 200}
+                return {'message': 'CCTV data updated successfully', 'code': 200}
             else:
-                return {'message': 'No image provided', 'code': 400}
+                return {'message': 'No image or location provided', 'code': 400}
         except Exception as e:
             print(e)
             return {'message': 'failed', 'code': 500, 'error': str(e)}
